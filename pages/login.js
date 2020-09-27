@@ -17,8 +17,8 @@ const Login = (props) => {
   const router = useRouter()
   //const { redirect } = router.query
   const redirect = '/profile'
-  const [data, setData] = useState({username:'', password:''})
-  const [errors, setErrors] = useState({username:false, password:false})
+  const [data, setData] = useState({ username: '', password: '' })
+  const [errors, setErrors] = useState({ username: false, password: false })
 
   const handleChange = event => {
     const name = event.target.name
@@ -26,28 +26,29 @@ const Login = (props) => {
     let error = false
     if (name === 'username' && (value.length < 2 || value.length > 10)) {
       error = true
-    } else if(name === 'password' &&  (value.length < 2 || value.length > 16)) {
+    } else if (name === 'password' && (value.length < 2 || value.length > 16)) {
       error = true
     }
-    setErrors({...errors, [name]:error})
-    setData({...data, [name]:value})
+    setErrors({ ...errors, [name]: error })
+    setData({ ...data, [name]: value })
   }
 
   const checkForm = () => {
     let check = true
-    if(!data.username || errors.username) {
+    if (!data.username || errors.username) {
       check = false
-    } else if (!data.password || errors.password){
+    } else if (!data.password || errors.password) {
       check = false
     }
     return check
   }
 
   const handleSubmit = useCallback(() => {
-    fetch(`${process.env.api}/api/accounts/token/`, {
+    fetch(`${process.env.api}/accounts/login/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        
       },
       body: JSON.stringify({
         username: data.username,
@@ -55,8 +56,8 @@ const Login = (props) => {
       })
     })
       .then(res => {
-        if(!res.ok) {
-          if(res.status === 401) {
+        if (!res.ok) {
+          if (res.status === 401) {
             throw Error('登录失败')
           }
           throw Error(res.statusText)
@@ -66,8 +67,8 @@ const Login = (props) => {
       .then(res => res.json())
       .then(res => {
         const cookies = new Cookies()
-        cookies.set('access', res.access, {path:'/'})
-        cookies.set('refresh', res.refresh, {path:'/'})
+        cookies.set('access', res.access, { path: '/' })
+        cookies.set('refresh', res.refresh, { path: '/' })
         Router.push(redirect)
       })
       .catch(err => alert(err.message))

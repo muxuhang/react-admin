@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Container from '@material-ui/core/Container'
 import InputBase from '@material-ui/core/InputBase'
@@ -16,10 +16,6 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import Layout from '../../components/layout.js'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-  }
-}))
 
 const ProductList = () => {
   const classes = useStyles()
@@ -39,6 +35,9 @@ const ProductList = () => {
         setData(res.data)
       }).catch(err => console.log(err))
   }, [])
+  const onChangePage = (e) => {
+    console.log(e);
+  }
 
   return (
     <Layout title="商品列表">
@@ -62,12 +61,12 @@ const ProductList = () => {
           <InputBase
             autoFocus
             name="search"
-            style={{width:'280px',maxWidth:'100%'}}
+            style={{ width: '280px', maxWidth: '100%' }}
             placeholder="请输入名称"
           />
           <Button
             variant="outlined"
-            style={{marginRight:'6px'}}
+            style={{ marginRight: '6px' }}
           >查询</Button>
           <Button
           >x 清除筛选</Button>
@@ -112,11 +111,18 @@ const ProductList = () => {
           count={total}
           rowsPerPage={limit}
           page={page}
-          //onChangePage={onChangePage}
+          onChangePage={onChangePage}
         />
       </Container>
     </Layout>
   )
 }
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+
+  }
+}))
 
 export default ProductList
