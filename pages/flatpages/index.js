@@ -1,36 +1,21 @@
-import React, { useEffect, useState } from 'react'
 import { Checkbox, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import React, { useState } from 'react'
 import Layout from '../../components/layout'
-import network from '../../utils/network'
-import { CheckBox } from '@material-ui/icons'
 
-const AdList = () => {
+
+const Flatpages = () => {
+  const tableHead = ['url', '标题', '创建时间']
   const [list, setList] = useState([])
-  const tableHead = ['名称', '图片', '标签', '创建时间']
-
-  useEffect(() => {
-    getAdlist()
-  }, [])
-  const getAdlist = () => {
-    network('GET', '/admin/ads', null, (res) => {
-      console.log(res);
-      setList(res.data)
-    })
-  }
-  const onSelectAllClick = (e) => {
-
-  }
   return (
-    <Layout title="轮播图">
+    <Layout tltle='简单页面'>
       <Container maxWidth="md">
-        <Typography variant='h1'>广告图</Typography>
+        <Typography variant='h1'>简单页面</Typography>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    onChange={onSelectAllClick}
                     inputProps={{ 'aria-label': 'select all desserts' }}
                   />
                 </TableCell>
@@ -44,7 +29,6 @@ const AdList = () => {
                 <TableRow key={index}>
                   <TableCell padding='checkbox'>
                     <Checkbox
-                      onChange={onSelectAllClick}
                       inputProps={{ 'aria-label': 'select all desserts' }}
                     />
                   </TableCell>
@@ -63,4 +47,5 @@ const AdList = () => {
     </Layout>
   )
 }
-export default AdList
+
+export default Flatpages

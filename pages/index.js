@@ -6,21 +6,26 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
 import Layout from '../components/layout'
+import { Button } from '@material-ui/core'
+import { useRouter } from 'next/router'
 
-const Home = () => (
-  <Layout title="壹健壹康">
-    <Container maxWidth="md">
-      <h1>Hello</h1>
-      <Link href="/settings">
-        <a>settings,</a>
-      </Link>
-      <Link href="/products"><a>products,</a></Link>
-      <Link href="/ads"><a>Ads,</a></Link>
-      <Link href="/shop"><a>shop,</a></Link>
-      <Link href="/login"><a>login,</a></Link>
-      <Link href="/search"><a>search,</a></Link>
-    </Container>
-  </Layout>
-)
+const Home = () => {
+  const router = useRouter()
+  const buttonList = [
+    { name: '设置', path: '/settings' },
+    { name: '商品列表', path: '/products' },
+    { name: '广告', path: '/ads' },
+    { name: '简单页面', path: '/flatpages' },
+  ]
+
+  return (
+    <Layout title="艺小星">
+      <Container maxWidth="md">
+        <h1>艺小星</h1>
+        {buttonList.map((item, index) => <Button onClick={() => router.push(item.path)} key={index}>{item.name}</Button>)}
+      </Container>
+    </Layout>
+  )
+}
 
 export default Home

@@ -1,24 +1,25 @@
-
+import Router from "next/router"
 const network = (
   method = 'GET',
   url = '',
-  body = {},
+  body = null,
   callBack = () => nul,
   useToken = false
 ) => {
+  let uri = `${process.env.api}${url}`
   let headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Basic ' + btoa('chen:orange0220')
   }
-  if (useToken) header.Authorization = 'Basic ' + btoa('chen:orange0220')
-  fetch(`${process.env.api}${url}`, {
+  fetch(uri, {
     method: method,
     headers: headers,
-    body: JSON.stringify(body)
+    body: body ? JSON.stringify(body) : null
   })
     .then(res => {
       if (!res.ok) {
         if (res.status === 401) {
-          throw Error('登录失败')
+          Router.push('login')
         }
         throw Error(res.statusText)
       }

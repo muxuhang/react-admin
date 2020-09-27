@@ -45,10 +45,7 @@ const ProductList = () => {
         maxWidth="md"
         className={classes.root}>
         <Box display="flex" mt={2} mb={2} justifyContent="space-between">
-          <Typography
-            variant="h4"
-            noWrap
-            component="h2">商品管理</Typography>
+          <Typography variant="h1">商品管理</Typography>
           <Button
             variant="contained"
             size="small"
@@ -71,48 +68,50 @@ const ProductList = () => {
           <Button
           >x 清除筛选</Button>
         </Box>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>名称</TableCell>
-                <TableCell>价格</TableCell>
-                <TableCell>划线价</TableCell>
-                <TableCell>团购价</TableCell>
-                <TableCell>开启团购</TableCell>
-                <TableCell>上架状态</TableCell>
-                <TableCell>操作</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell>#{row.id}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>{row.line_price}</TableCell>
-                  <TableCell>{row.group_price}</TableCell>
-                  <TableCell>{row.is_group}</TableCell>
-                  <TableCell>{row.is_onsale}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      size="small">编辑</Button>
-                  </TableCell>
+        <Paper variant="outlined">
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>名称</TableCell>
+                  <TableCell>价格</TableCell>
+                  <TableCell>划线价</TableCell>
+                  <TableCell>团购价</TableCell>
+                  <TableCell>开启团购</TableCell>
+                  <TableCell>上架状态</TableCell>
+                  <TableCell>操作</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[limit]}
-          component="div"
-          count={total}
-          rowsPerPage={limit}
-          page={page}
-          onChangePage={onChangePage}
-        />
+              </TableHead>
+              <TableBody>
+                {data.map(row => (
+                  <TableRow key={row.id}>
+                    <TableCell>#{row.id}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.price}</TableCell>
+                    <TableCell>{row.line_price}</TableCell>
+                    <TableCell>{row.group_price}</TableCell>
+                    <TableCell>{row.is_group}</TableCell>
+                    <TableCell>{row.is_onsale}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        size="small">编辑</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[limit]}
+            component="div"
+            count={total}
+            rowsPerPage={limit}
+            page={page}
+            onChangePage={onChangePage}
+          />
+        </Paper>
       </Container>
     </Layout>
   )
