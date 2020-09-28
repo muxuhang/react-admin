@@ -49,7 +49,7 @@ const AdList = () => {
                   </TableCell>
                   <TableCell>{item.collection}</TableCell>
                   <TableCell>
-                    <img style={{ height: '2rem' }} src={item.image} alt=''></img>
+                    <img style={{ height: '2rem', display: 'block' }} src={item.image} alt=''></img>
                   </TableCell>
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.created}</TableCell>
