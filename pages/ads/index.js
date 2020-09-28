@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Checkbox, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import Layout from '../../components/layout'
 import network from '../../utils/network'
-import { CheckBox } from '@material-ui/icons'
 
 const AdList = () => {
   const [list, setList] = useState([])

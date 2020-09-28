@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Router from 'next/router'
-import { Button, Container, Paper, Typography } from '@material-ui/core'
-
+import { Avatar, Backdrop, Button, CircularProgress, Container, Grid, Paper, Typography } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab';
 import Layout from '../../components/layout'
 import network from '../../utils/network'
+import utils from '../../utils/utils'
 const Profile = () => {
-
-
+  const [profile, setProfile] = useState(null)
 
   useEffect(() => {
-    // getProfile()
+    getProfile()
   }, [])
   const getProfile = () => {
     network('get', '/accounts/profile', null, (res) => {
-      console.log(res);
+      setProfile(res)
     })
   }
   const handleLogout = () => {
@@ -24,9 +24,14 @@ const Profile = () => {
     <Layout tltle='我的信息'>
       <Container maxWidth="md">
         <Typography variant="h1">我的信息</Typography>
-        <Paper variant="outlined" style={{ padding: 20 }}>
-          111
-        </Paper>
+        {!!profile ? <Paper variant="outlined" style={{ padding: 20 }}>
+          <Avatar src={profile.avatar}></Avatar>
+          <Grid><Typography>{profile.id}</Typography></Grid>
+          <Grid><Typography>{profile.username}</Typography></Grid>
+          <Grid><Typography>{profile.nickname}</Typography></Grid>
+          <Grid><Typography>{utils.timeformat(profile.date_joined)}</Typography></Grid>
+          <Grid>{profile.roles.map((item, index) => <Typography key={index}>{item}</Typography>)}</Grid>
+        </Paper> : null}
         <Button onClick={handleLogout}>退出登录</Button>
       </Container>
     </Layout>
