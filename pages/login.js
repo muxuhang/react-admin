@@ -44,11 +44,11 @@ const Login = (props) => {
   }
 
   const handleSubmit = useCallback(() => {
-    fetch(`${process.env.api}/accounts/login/`, {
+    fetch(`${process.env.api}/accounts/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        
+
       },
       body: JSON.stringify({
         username: data.username,
