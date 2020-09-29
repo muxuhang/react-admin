@@ -16,6 +16,7 @@ const Home = () => {
     { name: '商品列表', path: '/products' },
     { name: '广告', path: '/ads' },
     { name: '简单页面', path: '/flatpages' },
+    { name: '媒体附件', path: '/attachments' },
   ]
 
   return (

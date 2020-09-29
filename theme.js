@@ -4,13 +4,13 @@ import { red } from '@material-ui/core/colors';
 // Create a theme instance.
 const theme = createMuiTheme({
   typography: {
-    htmlFontSize: 14,
+    // htmlFontSize: 14,
     fontSize: 14,
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
     h1: {
       fontSize: '2rem',
       fontWeight: '500',
-      lineHeight:'4rem'
+      lineHeight: '4rem'
     },
     h2: {
       fontSize: '1.5rem',
@@ -31,7 +31,7 @@ const theme = createMuiTheme({
     h6: {
       fontSize: '.75rem',
       fontWeight: '300'
-    },
+    }
   },
   palette: {
     primary: {
