@@ -21,6 +21,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import MenuIcon from '@material-ui/icons/Menu';
+import { Info } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   menus: {
@@ -36,19 +37,19 @@ const Nav = () => {
   const list = () => (
     <div
       role="presentation"
-      onClick={()=>setOpen(false)}
-      onKeyDown={()=>setOpen(false)}
+      onClick={() => setOpen(false)}
+      onKeyDown={() => setOpen(false)}
     >
       <List>
         <ListItem button
-          onClick={()=>Router.push('/users')}>
+          onClick={() => Router.push('/users')}>
           <ListItemIcon>
             <PeopleAltIcon />
           </ListItemIcon>
           <ListItemText primary='用户管理' />
         </ListItem>
         <ListItem button
-          onClick={()=>Router.push('/products')}>
+          onClick={() => Router.push('/products')}>
           <ListItemIcon>
             <StorefrontIcon />
           </ListItemIcon>
@@ -63,37 +64,48 @@ const Nav = () => {
 
   return (
     <>
-    <AppBar position="sticky">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          onClick={()=>setOpen(true)}>
-          <MenuIcon />
-        </IconButton>
-        <Button color="inherit" onClick={()=>Router.push('/')}>Teachone</Button>
-        <div className={classes.menus}>
+      <AppBar position="sticky">
+        <Toolbar>
           <IconButton
-            aria-label="search"
+            edge="start"
             color="inherit"
-            onClick={()=>Router.push('/search')}>
-            <SearchIcon />
+            aria-label="menu"
+            onClick={() => setOpen(true)}>
+            <MenuIcon />
           </IconButton>
-          <IconButton
-            aria-label="user"
-            color="inherit"
-            onClick={()=>Router.push('/profile')}>
-            <AccountCircleIcon />
-          </IconButton>
-        </div>
-      </Toolbar>
-    </AppBar>
-    <Drawer
-      open={open}
-      onClose={()=>setOpen(false)}>
-      {list()}
-    </Drawer>
+          <Button color="inherit" onClick={() => Router.push('/')}>Teachone</Button>
+          <div className={classes.menus}><IconButton
+              aria-label="search"
+              color="inherit"
+              onClick={() => Router.push('/dashboards')}>
+              <Typography>仪表盘</Typography>
+            </IconButton>
+            <IconButton
+              aria-label="search"
+              color="inherit"
+              onClick={() => Router.push('/search')}>
+              <SearchIcon />
+            </IconButton>
+            <IconButton
+              aria-label="search"
+              color="inherit"
+              onClick={() => Router.push('/logs')}>
+              <Info />
+            </IconButton>
+            <IconButton
+              aria-label="user"
+              color="inherit"
+              onClick={() => Router.push('/profile')}>
+              <AccountCircleIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}>
+        {list()}
+      </Drawer>
     </>
   )
 }

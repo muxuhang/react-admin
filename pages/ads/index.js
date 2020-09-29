@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Container, Grid, IconButton, InputBase, Link, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Button, Checkbox, Container, Grid, IconButton, InputBase, Link, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import Layout from '../../components/layout'
 import network from '../../utils/network'
 import utils from '../../utils/utils'
@@ -9,9 +9,9 @@ import { Search, SearchOutlined } from '@material-ui/icons'
 
 const AdList = () => {
   const [list, setList] = useState([])
-  const [selected, setSelected] = React.useState([]);
-  const [searchText,setSearch] = React.useState('')
-  const tableHead = ['名称', '图片', '标签', '创建时间', '']
+  const [selected, setSelected] = useState([])
+  const [searchText, setSearch] = useState('')
+  const tableHead = ['id', '名称', '图片', '标签', '创建时间', '']
   const router = useRouter()
 
   useEffect(() => {
@@ -66,7 +66,9 @@ const AdList = () => {
       }
     })
   }
-  const search = () =>{
+  const search = () => {
+    console.log('search');
+    return
     network('GET', `/admin/ads`, null, (res) => {
       if (res.success) {
         setList(res.data)
@@ -80,18 +82,21 @@ const AdList = () => {
           <InputBase
             variant="contained"
             placeholder="搜索"
-            onChange={(e)=>setSearch(e.target.value)}
+            value={searchText}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                search()
+              }
+            }}
+            onChange={(e) => setSearch(e.target.value)}
             inputProps={{ 'aria-label': 'search google maps' }}
           />
           <Button
-            variant="contained"
-            color="primary"
-            onClick={search}
-            onClick={() => null}>搜索</Button>
+            variant="outlined"
+            onClick={search}>搜索</Button>
         </Grid>
         <Button
-          variant="contained"
-          color="primary"
+          variant="outlined"
           onClick={() => {
             router.push(`/ads/created`)
           }}>添加</Button>
@@ -128,6 +133,7 @@ const AdList = () => {
                 inputProps={{ 'aria-label': 'select all desserts' }}
               />
             </TableCell>
+            <TableCell>#{item.id}</TableCell>
             <TableCell>{item.collection}</TableCell>
             <TableCell>
               <img style={{ height: '2rem', display: 'block' }} src={item.image} alt=''></img>
@@ -161,13 +167,16 @@ const AdList = () => {
           <Typography variant='h1'>广告图</Typography>
         </Grid>
         {renderTableSearch()}
-        <TableContainer>
-          <Table>
-            {renderTableHead()}
-            {renderTableBody()}
-          </Table>
-          {renderTablePagination()}
-        </TableContainer>
+        <Paper variant="outlined">
+          <TableContainer>
+            <Table>
+              {renderTableHead()}
+              {renderTableBody()}
+            </Table>
+            {renderTablePagination()}
+          </TableContainer>
+        </Paper>
+
       </Container>
     </Layout>
   )
