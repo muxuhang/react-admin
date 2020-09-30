@@ -176,7 +176,6 @@ const AdList = () => {
             {renderTablePagination()}
           </TableContainer>
         </Paper>
-
       </Container>
     </Layout>
   )
