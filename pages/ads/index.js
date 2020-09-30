@@ -1,28 +1,55 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Container, Grid, IconButton, InputBase, Link, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
+import { Button, Checkbox, Container, Grid, IconButton, InputBase, Link, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Typography } from '@material-ui/core'
 import Layout from '../../components/layout'
 import network from '../../utils/network'
 import utils from '../../utils/utils'
 import { Pagination } from '@material-ui/lab'
 import { useRouter } from 'next/router'
-import { Search, SearchOutlined } from '@material-ui/icons'
-
 const AdList = () => {
   const [list, setList] = useState([])
   const [selected, setSelected] = useState([])
   const [searchText, setSearch] = useState('')
   const tableHead = ['id', '名称', '图片', '标签', '创建时间', '']
+
+  // 分页
+  const [current, setCurrent] = useState(1)
+  const [count, setCount] = useState(0)
   const router = useRouter()
+  const limit = 5
+  // 排序
+  const [sort, setSort] = useState('created')
 
   useEffect(() => {
     getAdlist()
-  }, [])
+  }, [current, sort])
   // 获取列表
   const getAdlist = () => {
-    network('GET', '/admin/ads', null, (res) => {
+    network('GET', `/admin/ads?limit=${limit}&&offset=${(current - 1) * limit}&search=${searchText}&sort=${sort}`, null, (res) => {
+      setCount(Math.ceil(res.total / limit));
       setList(res.data)
     })
   }
+  // 分页
+  const changePagination = async (page) => {
+    setCurrent(page)
+  }
+  const search = () => {
+    setCurrent(1)
+    if (current === 1) getAdlist()
+  }
+  // 删除选中
+  const deleteItem = () => {
+    console.log(selected);
+    network('DELETE', `/admin/ads/${selected[0]}`, null, (res) => {
+      if (res.success) {
+        getAdlist()
+        setSelected([])
+      } else {
+        alert('删除失败')
+      }
+    })
+  }
+
   // 全选
   const onSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -49,31 +76,6 @@ const AdList = () => {
       );
     }
     setSelected(newSelected);
-  }
-  // 分页
-  const changePagination = (page) => {
-    console.log(page);
-  }
-  // 删除选中
-  const deleteItem = () => {
-    console.log(selected);
-    network('DELETE', `/admin/ads/${selected[0]}`, null, (res) => {
-      if (res.success) {
-        getAdlist()
-        setSelected([])
-      } else {
-        alert('删除失败')
-      }
-    })
-  }
-  const search = () => {
-    console.log('search');
-    return
-    network('GET', `/admin/ads`, null, (res) => {
-      if (res.success) {
-        setList(res.data)
-      }
-    })
   }
   const renderTableSearch = () => {
     return (
@@ -110,11 +112,20 @@ const AdList = () => {
           <TableCell padding="checkbox">
             <Checkbox
               onChange={onSelectAllClick}
-              inputProps={{ 'aria-label': 'select all desserts' }}
+              inputProps={{ 'aria-label': 'select mall desserts' }}
             />
           </TableCell>
           {tableHead.map((item, index) => (
-            <TableCell key={index}>{item}</TableCell>
+            <TableCell key={index}>
+              {item == '创建时间' ? <TableSortLabel
+                direction={sort==='created'?'asc':''}
+                onClick={()=>{
+                  sort==='created'?setSort('-created'):setSort('created')
+                }}
+              >
+                {item}
+              </TableSortLabel> : item}
+            </TableCell>
           ))}
         </TableRow>
       </TableHead>
@@ -139,7 +150,9 @@ const AdList = () => {
               <img style={{ height: '2rem', display: 'block' }} src={item.image} alt=''></img>
             </TableCell>
             <TableCell>{item.title}</TableCell>
-            <TableCell>{utils.timeformat(item.created)}</TableCell>
+            <TableCell>
+              {utils.timeformat(item.created)}
+            </TableCell>
             <TableCell>
               <Link href={`/ads/${item.id}`}>编辑</Link>
             </TableCell>
@@ -155,7 +168,10 @@ const AdList = () => {
           {selected.length ? <Button onClick={deleteItem}>删除</Button> : null}
         </Grid>
         <Grid item>
-          <Pagination count={10} onChange={(e, page) => changePagination(page)} color="primary" />
+          <Pagination
+            count={count}
+            page={current}
+            onChange={(e, page) => changePagination(page)} color="primary" />
         </Grid>
       </Grid>
     )
