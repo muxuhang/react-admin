@@ -11,6 +11,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "braft-editor": "^2.3.9",
     "echarts": "^4.9.0",
     "echarts-for-react": "^2.0.16",
     "next": "9.5.3",

@@ -1,17 +1,23 @@
 
 import React, { useEffect, useState } from 'react'
 import Layout from '../../components/layout';
-import { Button, Container, Grid, Input, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Grid, Input, Modal, Paper, TextField, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-
+import dynamic from 'next/dynamic'
+const BraftEditor = dynamic(() => import('braft-editor'),
+  {
+    ssr: false
+  })
 const ad = () => {
   const [details, setDetails] = useState({
-    collection: '',
-    image: '',
+    id: '',
+    slug: '',
     title: '',
-    url: ''
+    created: '',
+    updated: '',
+    body: ''
   })
   const router = useRouter()
   const { pid } = router.query
@@ -20,7 +26,7 @@ const ad = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/ads/admin/${pid}`, null, (res) => {
+    network('GET', `/flatpages/admin/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -29,10 +35,9 @@ const ad = () => {
     setDetails(form)
   }
   // 创建新的
-  const saveAds = async () => {
+  const saveFlatpages = async () => {
     const form = details
-    network('POST', '/ads/admin', form, (res) => {
-      console.log();
+    network('POST', '/flatpages/admin', form, (res) => {
       if (res.success) {
         router.back()
       } else {
@@ -41,11 +46,12 @@ const ad = () => {
     })
   }
   // 修改
-  const changeAds = async () => {
+  const changeFlatpages = async () => {
     const form = details
-    network('PUT', `/ads/admin/${pid}`, form, (res) => {
+    network('PUT', `/flatpages/admin/${pid}`, form, (res) => {
       if (res.success) {
-        router.back()
+        console.log(res);
+        // router.back()
       } else {
         alert('修改失败')
       }
@@ -61,27 +67,14 @@ const ad = () => {
         <Grid>
           <Typography>标签</Typography>
           <TextField
-            onChange={(e) => changeText(e.target.value, 'collection')}
-            value={details.collection}></TextField>
+            onChange={(e) => changeText(e.target.value, 'slug')}
+            value={details.slug}></TextField>
         </Grid>
         <Grid>
           <Typography>标题</Typography>
           <TextField
             onChange={(e) => changeText(e.target.value, 'title')}
             value={details.title}></TextField>
-        </Grid>
-        <Grid>
-          <Typography>图片</Typography>
-          <img style={{ maxWidth: 400 }} src={details.image} alt=''></img>
-          <TextField
-            onChange={(e) => changeText(e.target.value, 'image')}
-            value={details.image}></TextField>
-        </Grid>
-        <Grid>
-          <Typography>链接</Typography>
-          <TextField
-            onChange={(e) => changeText(e.target.value, 'url')}
-            value={details.url}></TextField>
         </Grid>
         {pid !== 'created' && <Grid>
           <Typography>创建时间</Typography>
@@ -91,7 +84,13 @@ const ad = () => {
           <Typography>修改时间</Typography>
           <TextField value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></TextField>
         </Grid>}
-        <Button onClick={!details.id ? saveAds : changeAds}>保存</Button>
+        <Grid>
+          <Typography>内容</Typography>
+          <Paper>
+            <BraftEditor value={details.body} onChange={(e) => changeText(e, 'body')} />
+          </Paper>
+        </Grid>
+        <Button onClick={!details.id ? saveFlatpages : changeFlatpages}>保存</Button>
       </Container>
     </Layout>
   )

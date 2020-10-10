@@ -18,7 +18,7 @@ const ad = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/admin/settings/${pid}`, null, (res) => {
+    network('GET', `/settings/admin/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -29,7 +29,7 @@ const ad = () => {
   // 创建新的
   const saveAds = async () => {
     const form = details
-    network('POST', '/admin/settings', form, (res) => {
+    network('POST', '/settings/admin', form, (res) => {
       console.log();
       if (res.success) {
         router.back()
@@ -41,7 +41,7 @@ const ad = () => {
   // 修改
   const changeAds = async () => {
     const form = details
-    network('POST', `/admin/settings/${details.key}`, form, (res) => {
+    network('POST', `/settings/admin/${details.key}`, form, (res) => {
       if (res.success) {
         router.back()
       } else {

@@ -24,7 +24,7 @@ const AdList = () => {
   }, [current, sort])
   // 获取列表
   const getAdlist = () => {
-    network('GET', `/admin/ads?limit=${limit}&&offset=${(current - 1) * limit}&search=${searchText}&sort=${sort}`, null, (res) => {
+    network('GET', `/ads/admin?limit=${limit}&&offset=${(current - 1) * limit}&search=${searchText}&sort=${sort}`, null, (res) => {
       setCount(Math.ceil(res.total / limit));
       setList(res.data)
     })
@@ -39,8 +39,9 @@ const AdList = () => {
   }
   // 删除选中
   const deleteItem = () => {
-    console.log(selected);
-    network('DELETE', `/admin/ads/${selected[0]}`, null, (res) => {
+    network('DELETE', `/ads/admin/bulk_delete`, {
+      ids:selected.toString()
+    }, (res) => {
       if (res.success) {
         getAdlist()
         setSelected([])

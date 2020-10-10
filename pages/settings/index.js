@@ -12,13 +12,13 @@ const Settings = () => {
   const [list, setList] = useState([])
   const [selected, setSelected] = useState([])
   const [searchText, setSearch] = useState('')
-  const tableHead = ['编码', '值', '描述', '编辑']
+  const tableHead = ['编码', '值', '描述', '操作']
   const router = useRouter()
   useEffect(() => {
     getSettings()
   }, [])
   const getSettings = () => {
-    network('get', '/admin/settings', null, (res) => {
+    network('get', '/settings/admin', null, (res) => {
       console.log(res);
       setList(res.data)
     })
@@ -26,18 +26,18 @@ const Settings = () => {
   // 全选
   const onSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = list.map((n) => n.id);
+      const newSelecteds = list.map((n) => n.key);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   }
   // 单独选择
-  const onSelectClick = (id) => {
-    const selectedIndex = selected.indexOf(id);
+  const onSelectClick = (key) => {
+    const selectedIndex = selected.indexOf(key);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, key);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -57,7 +57,7 @@ const Settings = () => {
   // 删除选中
   const deleteItem = () => {
     console.log(selected);
-    network('DELETE', `/admin/settings/${selected[0]}`, null, (res) => {
+    network('DELETE', `/settings/admin/${selected[0]}`, null, (res) => {
       if (res.success) {
         getAdlist()
         setSelected([])
@@ -67,9 +67,7 @@ const Settings = () => {
     })
   }
   const search = () => {
-    console.log('search');
-    return
-    network('GET', `/admin/settings`, null, (res) => {
+    network('GET', `/settings/admin`, null, (res) => {
       if (res.success) {
         setList(res.data)
       }
@@ -121,15 +119,15 @@ const Settings = () => {
     )
   }
   const renderTableBody = () => {
-    const isSelected = (id) => selected.indexOf(id) !== -1;
+    const isSelected = (key) => selected.indexOf(key) !== -1;
     return (
       <TableBody>
         {list.map((item, index) => (
           <TableRow key={index}>
             <TableCell padding='checkbox'>
               <Checkbox
-                checked={isSelected(item.id)}
-                onChange={() => onSelectClick(item.id)}
+                checked={isSelected(item.key)}
+                onChange={() => onSelectClick(item.key)}
                 inputProps={{ 'aria-label': 'select all desserts' }}
               />
             </TableCell>
