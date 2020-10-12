@@ -40,7 +40,7 @@ const AdList = () => {
   // 删除选中
   const deleteItem = () => {
     network('DELETE', `/ads/admin/bulk_delete`, {
-      ids:selected.toString()
+      ids: selected.toString()
     }, (res) => {
       if (res.success) {
         getAdlist()
@@ -119,9 +119,9 @@ const AdList = () => {
           {tableHead.map((item, index) => (
             <TableCell key={index}>
               {item == '创建时间' ? <TableSortLabel
-                direction={sort==='created'?'asc':''}
-                onClick={()=>{
-                  sort==='created'?setSort('-created'):setSort('created')
+                direction={sort === 'created' ? 'asc' : ''}
+                onClick={() => {
+                  sort === 'created' ? setSort('-created') : setSort('created')
                 }}
               >
                 {item}

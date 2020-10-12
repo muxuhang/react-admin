@@ -22,7 +22,6 @@ const Home = () => {
   return (
     <Layout title="艺小星">
       <Container maxWidth="md">
-        <h1>艺小星</h1>
         {buttonList.map((item, index) => <Button onClick={() => router.push(item.path)} key={index}>{item.name}</Button>)}
       </Container>
     </Layout>

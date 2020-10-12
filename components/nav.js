@@ -30,83 +30,44 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Nav = () => {
+const Nav = (props) => {
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
-
-  const list = () => (
-    <div
-      role="presentation"
-      onClick={() => setOpen(false)}
-      onKeyDown={() => setOpen(false)}
-    >
-      <List>
-        <ListItem button
-          onClick={() => Router.push('/users')}>
-          <ListItemIcon>
-            <PeopleAltIcon />
-          </ListItemIcon>
-          <ListItemText primary='用户管理' />
-        </ListItem>
-        <ListItem button
-          onClick={() => Router.push('/products')}>
-          <ListItemIcon>
-            <StorefrontIcon />
-          </ListItemIcon>
-          <ListItemText primary='商品管理' />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-      </List>
-    </div>
-  );
-
   return (
-    <>
-      <AppBar position="sticky">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => setOpen(true)}>
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" onClick={() => Router.push('/')}>Teachone</Button>
-          <div className={classes.menus}><IconButton
-              aria-label="search"
-              color="inherit"
-              onClick={() => Router.push('/dashboards')}>
-              <Typography>仪表盘</Typography>
-            </IconButton>
-            <IconButton
-              aria-label="search"
-              color="inherit"
-              onClick={() => Router.push('/search')}>
-              <SearchIcon />
-            </IconButton>
-            <IconButton
-              aria-label="search"
-              color="inherit"
-              onClick={() => Router.push('/logs')}>
-              <Info />
-            </IconButton>
-            <IconButton
-              aria-label="user"
-              color="inherit"
-              onClick={() => Router.push('/profile')}>
-              <AccountCircleIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        open={open}
-        onClose={() => setOpen(false)}>
-        {list()}
-      </Drawer>
-    </>
+    <Toolbar>
+      <IconButton
+        edge="start"
+        color="inherit"
+        onClick={props.onTab}
+        aria-label="menu">
+        <MenuIcon />
+      </IconButton>
+      <Button color="inherit" onClick={() => Router.push('/')}>Teachone</Button>
+      <div className={classes.menus}><IconButton
+        aria-label="search"
+        color="inherit"
+        onClick={() => Router.push('/dashboards')}>
+        <Typography>仪表盘</Typography>
+      </IconButton>
+        <IconButton
+          aria-label="search"
+          color="inherit"
+          onClick={() => Router.push('/search')}>
+          <SearchIcon />
+        </IconButton>
+        <IconButton
+          aria-label="search"
+          color="inherit"
+          onClick={() => Router.push('/logs')}>
+          <Info />
+        </IconButton>
+        <IconButton
+          aria-label="user"
+          color="inherit"
+          onClick={() => Router.push('/profile')}>
+          <AccountCircleIcon />
+        </IconButton>
+      </div>
+    </Toolbar>
   )
 }
 
