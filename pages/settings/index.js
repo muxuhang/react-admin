@@ -158,7 +158,7 @@ const Settings = () => {
     <Layout title='设置'>
       <Container maxWidth="md">
         <Grid container>
-          <Typography variant='h1'>设置</Typography>
+          <Typography variant='h4'>设置</Typography>
         </Grid>
         {renderTableSearch()}
         <Paper variant="outlined">

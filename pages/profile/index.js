@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <Layout tltle='我的信息'>
       <Container maxWidth="md">
-        <Typography variant="h1">我的信息</Typography>
+        <Typography variant="h4">我的信息</Typography>
         {!!profile ? <Paper variant="outlined" style={{ padding: 20 }}>
           <Avatar src={profile.avatar}></Avatar>
           <Grid><Typography>{profile.id}</Typography></Grid>

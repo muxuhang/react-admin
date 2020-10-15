@@ -5,6 +5,7 @@ import { Button, Container, Grid, Input, TextField, Typography } from '@material
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
+import { useSnackbar } from 'notistack';
 
 const ad = () => {
   const [details, setDetails] = useState({
@@ -15,6 +16,7 @@ const ad = () => {
   })
   const router = useRouter()
   const { pid } = router.query
+  const { enqueueSnackbar } = useSnackbar()
   useEffect(() => {
     getData()
   }, [pid])
@@ -31,12 +33,16 @@ const ad = () => {
   // 创建新的
   const saveAds = async () => {
     const form = details
+    if (!form.image || !form.collection) {
+      enqueueSnackbar('标签和图片必传', { variant: 'warning' })
+      return
+    }
     network('POST', '/ads/admin', form, (res) => {
-      console.log();
       if (res.success) {
+        enqueueSnackbar('保存成功', { variant: 'success' })
         router.back()
       } else {
-        alert('创建失败')
+        enqueueSnackbar('创建失败', { variant: 'error' })
       }
     })
   }
@@ -45,9 +51,10 @@ const ad = () => {
     const form = details
     network('PUT', `/ads/admin/${pid}`, form, (res) => {
       if (res.success) {
+        enqueueSnackbar('保存成功', { variant: 'success' })
         router.back()
       } else {
-        alert('修改失败')
+        enqueueSnackbar('修改失败', { variant: 'error' })
       }
     })
   }

@@ -176,7 +176,7 @@ const Flatpages = () => {
     <Layout title="轮播图">
       <Container maxWidth="md">
         <Grid container>
-          <Typography variant='h1'>简单页面</Typography>
+          <Typography variant='h4'>简单页面</Typography>
         </Grid>
         {renderTableSearch()}
         <Paper variant="outlined">

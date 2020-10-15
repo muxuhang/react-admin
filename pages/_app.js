@@ -5,10 +5,11 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
 import 'braft-editor/dist/index.css'
+import { SnackbarProvider, useSnackbar } from 'notistack';
+import { Button } from '@material-ui/core';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
-
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -16,6 +17,10 @@ export default function MyApp(props) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+  const notistackRef = React.createRef();
+  const onClickDismiss = key => () => {
+    notistackRef.current.closeSnackbar(key);
+  }
   return (
     <React.Fragment>
       <Head>
@@ -25,7 +30,21 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <SnackbarProvider
+          ref={notistackRef}
+          maxSnack={3}
+          variant={'info'}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          action={(key) => (
+            <Button onClick={onClickDismiss(key)} style={{ color: '#ffffff' }}>
+              关闭
+            </Button>
+          )}>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </React.Fragment>
   );

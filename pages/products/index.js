@@ -182,7 +182,7 @@ const ProductList = () => {
     <Layout title="商品管理">
       <Container maxWidth="md">
         <Grid container>
-          <Typography variant='h1'>商品管理</Typography>
+          <Typography variant='h4'>商品管理</Typography>
         </Grid>
         {renderTableSearch()}
         <Paper variant="outlined">
