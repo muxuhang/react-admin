@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import Layout from '../../components/layout';
+import Box from '../../components/box';
 import { Button, Container, Grid, Input, TextField, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
@@ -59,7 +59,7 @@ const ad = () => {
     })
   }
   return (
-    <Layout title=''>
+    <Box title=''>
       <Container maxWidth="md">
         {pid !== 'created' && <Grid>
           <Typography>id</Typography>
@@ -100,7 +100,7 @@ const ad = () => {
         </Grid>}
         <Button onClick={!details.id ? saveAds : changeAds}>保存</Button>
       </Container>
-    </Layout>
+    </Box>
   )
 }
 

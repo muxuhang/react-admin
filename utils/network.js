@@ -1,5 +1,5 @@
 import Router from "next/router"
-const network = (
+const network = async (
   method = 'GET',
   url = '',
   body = null,
@@ -29,7 +29,7 @@ const network = (
     .then(res => {
       callBack(res)
     })
-    .catch(err => callBack(err))
+    .catch(err => console.error('request error',err))
 }
 
 export default network

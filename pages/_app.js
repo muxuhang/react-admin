@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../theme';
 import 'braft-editor/dist/index.css'
-import { SnackbarProvider, useSnackbar } from 'notistack';
-import { Button } from '@material-ui/core';
+import { SnackbarProvider } from 'notistack';
+import { Button, ConfigProvider } from 'antd';
+import 'antd/dist/antd.css';
+import './_app.css'
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -27,9 +26,7 @@ export default function MyApp(props) {
         <title>艺小星</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
+      <ConfigProvider>
         <SnackbarProvider
           ref={notistackRef}
           maxSnack={3}
@@ -45,7 +42,7 @@ export default function MyApp(props) {
           )}>
           <Component {...pageProps} />
         </SnackbarProvider>
-      </ThemeProvider>
+      </ConfigProvider>
     </React.Fragment>
   );
 }

@@ -1,13 +1,9 @@
 import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
 
-import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
 
-import Layout from '../components/layout'
-import { Button } from '@material-ui/core'
+import { Button } from 'antd'
 import { useRouter } from 'next/router'
+import Box from '../components/box'
 
 const Home = () => {
   const router = useRouter()
@@ -20,11 +16,11 @@ const Home = () => {
   ]
 
   return (
-    <Layout title="艺小星">
-      <Container maxWidth="md">
+    <Box title="艺小星">
+      <div>
         {buttonList.map((item, index) => <Button onClick={() => router.push(item.path)} key={index}>{item.name}</Button>)}
-      </Container>
-    </Layout>
+      </div>
+    </Box>
   )
 }
 
