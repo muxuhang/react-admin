@@ -12,7 +12,7 @@ export default function Box({ children }) {
         <LeftMenu />
       </Sider>
       <Layout>
-        <Header>
+        <Header style={{padding:0}}>
           <TopMenu
             collapsed={collapsed}
             setCollapsed={() => setCollapsed(!collapsed)} />

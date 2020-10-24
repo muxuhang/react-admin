@@ -1,6 +1,7 @@
 
 import {
   HomeOutlined,
+  UsergroupAddOutlined,
   AppstoreOutlined,
   PieChartOutlined,
   DesktopOutlined,
@@ -8,19 +9,22 @@ import {
   MailOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
+import { useRouter } from 'next/router';
 const { SubMenu } = Menu;
 
 const LeftMenu = ({ collapsed }) => {
-  // const menu = [
-  //   { name: '首页', path: '/', icon: <Home /> },
-  //   { name: '仪表盘', path: '/dashboards', icon: <Dashboard /> },
-  //   { name: '商品列表', path: '/products', icon: <Store /> },
-  //   { name: '媒体附件', path: '/attachments', icon: <InsertPhoto /> },
-  //   { name: '简单页面', path: '/flatpages', icon: <Note /> }
-  // ]
+  const router = useRouter()
+  console.log(router.pathname);
+  const menulist = [
+    { name: '首页', path: '/', icon: <HomeOutlined /> },
+    { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
+    // { name: '商品列表', path: '/products', icon: <Store /> },
+    // { name: '媒体附件', path: '/attachments', icon: <InsertPhoto /> },
+    // { name: '简单页面', path: '/flatpages', icon: <Note /> }
+  ]
   return (
     <Menu
-      defaultSelectedKeys={['1']}
+      defaultSelectedKeys={[router.pathname]}
       mode="inline"
       theme='dark'
       collapsed={collapsed}
@@ -30,7 +34,12 @@ const LeftMenu = ({ collapsed }) => {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
         margin: '16px'
       }} />
-      <Menu.Item key="1" icon={<HomeOutlined />}>
+      {menulist.map((item, index) => (
+        <Menu.Item key={item.path} icon={item.icon} onClick={() => router.push(item.path)}>
+          {item.name}
+        </Menu.Item>
+      ))}
+      {/* <Menu.Item key="1" icon={<HomeOutlined />}>
         首页
           </Menu.Item>
       <Menu.Item key="2" icon={<DesktopOutlined />}>
@@ -52,7 +61,7 @@ const LeftMenu = ({ collapsed }) => {
           <Menu.Item key="11">Option 11</Menu.Item>
           <Menu.Item key="12">Option 12</Menu.Item>
         </SubMenu>
-      </SubMenu>
+      </SubMenu> */}
     </Menu>
   )
 }

@@ -7,11 +7,11 @@ const timeformat = (date, symbol = '-') => {
   const minutes = time.getMinutes()
   const seconds = time.getSeconds()
   return year + symbol +
-    month + symbol +
-    day + ' ' +
-    hours + ':' +
-    minutes + ':' +
-    seconds
+    month.toString().padStart(2, '0') + symbol +
+    day.toString().padStart(2, '0') + ' ' +
+    hours.toString().padStart(2, '0') + ':' +
+    minutes.toString().padStart(2, '0') + ':' +
+    seconds.toString().padStart(2, '0')
 }
 
 

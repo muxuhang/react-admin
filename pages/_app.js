@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import 'braft-editor/dist/index.css'
-import { SnackbarProvider } from 'notistack';
-import { Button, ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.css';
 import './_app.css'
 
@@ -16,10 +15,6 @@ export default function MyApp(props) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-  const notistackRef = React.createRef();
-  const onClickDismiss = key => () => {
-    notistackRef.current.closeSnackbar(key);
-  }
   return (
     <React.Fragment>
       <Head>
@@ -27,21 +22,7 @@ export default function MyApp(props) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ConfigProvider>
-        <SnackbarProvider
-          ref={notistackRef}
-          maxSnack={3}
-          variant={'info'}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          action={(key) => (
-            <Button onClick={onClickDismiss(key)} style={{ color: '#ffffff' }}>
-              关闭
-            </Button>
-          )}>
-          <Component {...pageProps} />
-        </SnackbarProvider>
+        <Component {...pageProps} />
       </ConfigProvider>
     </React.Fragment>
   );
