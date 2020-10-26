@@ -18,7 +18,7 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>艺小星</title>
+        <title>纸坊镇重点工作亮化考核台账系统</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ConfigProvider>

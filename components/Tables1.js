@@ -3,9 +3,8 @@ import { Router, useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import network from "../utils/network"
 const Tables = (props) => {
-  const { https, title, sort } = props
+  const { https, title, sort, columns } = props
   const router = useRouter()
-  let [columns, setColumns] = useState([])
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
@@ -16,27 +15,11 @@ const Tables = (props) => {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    getColumns()
     getList()
   }, [current, sort])
-  // 获取列表标题，并添加编辑部分
-  const getColumns = () => {
-    setColumns([
-      ...props.columns,
-      {
-        title: '编辑', key: 'edit', render: (v) => {
-          return (
-            <div>
-              <a onClick={() => router.push(`/${https}/${v.id}`)}>编辑</a>
-            </div>
-          )
-        }
-      }
-    ])
-  }
   // 获取列表数据
   const getList = () => {
-    network('GET', `/${https}/admin?limit=${limit}&&offset=${(current - 1) * limit}&search=${searchText}&sort=${sort}`, null, (res) => {
+    network('GET', `/${https}?limit=${limit}&&offset=${(current - 1) * limit}&search=${searchText}&sort=${sort}`, null, (res) => {
       setCount(Math.ceil(res.total / limit));
       setList(res.data ? res.data : [])
       setLoading(false)
@@ -44,7 +27,7 @@ const Tables = (props) => {
   }
   // 删除选中部分
   const deleteList = () => {
-    network('DELETE', `/${https}/admin/bulk_delete`, {
+    network('DELETE', `/${https}/`, {
       ids: selectedRowKeys.toString()
     }, (res) => {
       if (res.success) {
@@ -54,7 +37,6 @@ const Tables = (props) => {
       } else {
         message.info('删除失败')
       }
-      setShow(false)
     })
   }
   // 点击删除需要进一步确认

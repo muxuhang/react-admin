@@ -10,11 +10,12 @@ const network = async (
   let uri = `${process.env.api}${url}`
   let headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Basic ' + btoa('chen:orange0220')
+    // 'Authorization': 'Basic ' + btoa('chen:orange0220')
   }
   fetch(uri, {
     method: method,
     headers: headers,
+    mode: 'no-cors',
     body: body ? JSON.stringify(body) : null
   })
     .then(res => {
@@ -28,7 +29,6 @@ const network = async (
       }
       return res
     })
-    .then(res => res.json())
     .then(res => {
       callBack(res)
     })

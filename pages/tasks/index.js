@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import Tables from '../../components/Tables1'
 import Box from '../../components/box'
 import { Breadcrumb } from 'antd'
-import { renderImage, renderCreated } from './../../utils/renders'
+import { renderImage, renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
-const AdList = () => {
-  const title = '广告图'
-  const https = 'ads'
+const TasksList = () => {
+  const title = '工作'
+  const https = 'tasks'
   const [sort, setSort] = useState('created')
   const router = useRouter()
   const columns = [
@@ -40,4 +40,4 @@ const AdList = () => {
     </Box>
   )
 }
-export default AdList
+export default TasksList

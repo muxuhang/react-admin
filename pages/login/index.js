@@ -59,11 +59,12 @@ const Login = (props) => {
       <Col
         style={{ maxWidth: 450, width: '100%', margin: 'auto' }}>
         <Card style={{ borderRadius: 5 }}>
-          <Title level={2}>纸坊镇管理系统</Title>
+          <Title level={3}>纸坊镇重点工作亮化考核台账系统</Title>
           <Input
             margin="dense"
             label="用户名"
             name="username"
+            style={{ marginTop: 10 }}
             placeholder='请输入用户名'
             addonBefore={<UserOutlined />}
             onChange={handleChange}
