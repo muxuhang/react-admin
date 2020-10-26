@@ -18,7 +18,7 @@ const LeftMenu = ({ collapsed }) => {
   const menulist = [
     { name: '首页', path: '/', icon: <HomeOutlined /> },
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
-    // { name: '商品列表', path: '/products', icon: <Store /> },
+    { name: '广告', path: '/ads', icon: <HomeOutlined /> },
     // { name: '媒体附件', path: '/attachments', icon: <InsertPhoto /> },
     // { name: '简单页面', path: '/flatpages', icon: <Note /> }
   ]

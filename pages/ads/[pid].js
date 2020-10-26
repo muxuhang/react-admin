@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from 'react'
 import Box from '../../components/box';
-import { Button, Container, Grid, Input, TextField, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { useSnackbar } from 'notistack';
+import { Breadcrumb, Button, Col, Image, Input, message, Row } from 'antd';
+import Grid from 'antd/lib/card/Grid';
 
 const ad = () => {
   const [details, setDetails] = useState({
@@ -16,7 +16,6 @@ const ad = () => {
   })
   const router = useRouter()
   const { pid } = router.query
-  const { enqueueSnackbar } = useSnackbar()
   useEffect(() => {
     getData()
   }, [pid])
@@ -34,15 +33,15 @@ const ad = () => {
   const saveAds = async () => {
     const form = details
     if (!form.image || !form.collection) {
-      enqueueSnackbar('标签和图片必传', { variant: 'warning' })
+      message.info('标签和图片必传')
       return
     }
     network('POST', '/ads/admin', form, (res) => {
       if (res.success) {
-        enqueueSnackbar('保存成功', { variant: 'success' })
+        message.success('保存成功')
         router.back()
       } else {
-        enqueueSnackbar('创建失败', { variant: 'error' })
+        message.error('创建失败')
       }
     })
   }
@@ -51,57 +50,72 @@ const ad = () => {
     const form = details
     network('PUT', `/ads/admin/${pid}`, form, (res) => {
       if (res.success) {
-        enqueueSnackbar('保存成功', { variant: 'success' })
+        message.success('保存成功')
         router.back()
       } else {
-        enqueueSnackbar('修改失败', { variant: 'error' })
+        message.error('修改失败')
       }
     })
   }
   return (
-    <Box title=''>
-      <Container maxWidth="md">
-        {pid !== 'created' && <Grid>
-          <Typography>id</Typography>
-          <TextField value={details.id} disabled></TextField>
-        </Grid>}
-        <Grid>
-          <Typography>标签</Typography>
-          <TextField
+    <Box>
+      <Breadcrumb style={{paddingBottom:16}}>
+        <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/ads'>广告图</a></Breadcrumb.Item>
+        <Breadcrumb.Item>{pid==='created'?'添加':'编辑'}</Breadcrumb.Item>
+      </Breadcrumb>
+      {pid !== 'created' && <Row gutter={[8, 16]}>
+        <Col xs={4} style={{ padding: '4px 0' }}>id</Col>
+        <Col xs={24} sm={14}><Input value={details.id} disabled></Input></Col>
+      </Row>}
+      <Row gutter={[8, 16]}>
+        <Col xs={4}>标签</Col>
+        <Col xs={24} sm={14}>
+          <Input
             onChange={(e) => changeText(e.target.value, 'collection')}
-            value={details.collection}></TextField>
-        </Grid>
-        <Grid>
-          <Typography>标题</Typography>
-          <TextField
+            value={details.collection}></Input>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
+        <Col xs={4}>标题</Col>
+        <Col xs={24} sm={14}>
+          <Input
             onChange={(e) => changeText(e.target.value, 'title')}
-            value={details.title}></TextField>
-        </Grid>
-        <Grid>
-          <Typography>图片</Typography>
-          <img style={{ maxWidth: 400 }} src={details.image} alt=''></img>
-          <TextField
+            value={details.title}></Input>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
+        <Col xs={4}>图片</Col>
+        <Col xs={24} sm={14}>
+          <Image src={details.image} style={{ maxWidth: 300, marginBottom: 16 }} alt=''></Image>
+          <Input
             onChange={(e) => changeText(e.target.value, 'image')}
-            value={details.image}></TextField>
-        </Grid>
-        <Grid>
-          <Typography>链接</Typography>
-          <TextField
+            value={details.image}></Input>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
+        <Col xs={4}>链接</Col>
+        <Col xs={24} sm={14}>
+          <Input
             onChange={(e) => changeText(e.target.value, 'url')}
-            value={details.url}></TextField>
-        </Grid>
-        {pid !== 'created' && <Grid>
-          <Typography>创建时间</Typography>
-          <TextField value={utils.timeformat(details.created)} disabled></TextField>
-        </Grid>}
-        {pid !== 'created' && <Grid>
-          <Typography>修改时间</Typography>
-          <TextField value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></TextField>
-        </Grid>}
+            value={details.url}></Input>
+        </Col>
+      </Row>
+      {pid !== 'created' && <Row gutter={[8, 16]}>
+        <Col xs={4}>创建时间</Col>
+        <Col xs={24} sm={14} flex={1}>
+          <Input value={utils.timeformat(details.created)} disabled></Input>
+        </Col>
+      </Row>}
+      {pid !== 'created' && <Row gutter={[8, 16]}>
+        <Col xs={4}>修改时间</Col>
+        <Col xs={24} sm={14}>
+          <Input value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></Input></Col>
+      </Row>}
+      <Row gutter={[8, 16]}>
         <Button onClick={!details.id ? saveAds : changeAds}>保存</Button>
-      </Container>
+      </Row>
     </Box>
   )
 }
-
 export default ad
