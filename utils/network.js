@@ -1,3 +1,4 @@
+import { message } from "antd"
 import Router from "next/router"
 const network = async (
   method = 'GET',
@@ -20,6 +21,8 @@ const network = async (
       if (!res.ok) {
         if (res.status === 401) {
           Router.push('login')
+        } else if (res.status >= 500) {
+          message.error(`服务器错误: ${res.status}`)
         }
         throw Error(res.statusText)
       }
@@ -29,7 +32,10 @@ const network = async (
     .then(res => {
       callBack(res)
     })
-    .catch(err => console.error('request error',err))
+    .catch(err => {
+      console.error(err)
+      callBack({ data: null })
+    })
 }
 
 export default network

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Badge, Button } from 'antd'
+import { Badge, Button, Popover } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -8,6 +8,11 @@ import {
 } from '@ant-design/icons';
 
 const TopMenu = (props) => {
+  const renderNotice = () => (
+    <div>
+      111
+    </div>
+  )
   return (
     <div style={styles.menubox}>
       <Button
@@ -19,13 +24,18 @@ const TopMenu = (props) => {
           <MenuFoldOutlined />}
       </Button>
       <div style={{ flex: 1 }}></div>
-      <Button
-        type='text'
-        style={styles.button}>
-        <Badge count={8} size='small'>
-          <SoundOutlined />
-        </Badge>
-      </Button>
+      <Popover
+        content={renderNotice}
+        placement="bottomRight"
+        title="通知">
+        <Button
+          type='text'
+          style={styles.button}>
+          <Badge count={8} size='small'>
+            <SoundOutlined />
+          </Badge>
+        </Button>
+      </Popover>
       <Button
         type='text'
         style={styles.button}>

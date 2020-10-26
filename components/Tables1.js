@@ -149,7 +149,6 @@ const Tables = (props) => {
       </div>
     )
   }
-  console.log(1);
   return (
     <>
       {renderPageHeader()}

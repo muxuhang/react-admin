@@ -13,10 +13,10 @@ const BarEcharts = () => {
       series: [{
         data: [120, 200, 150, 80, 70, 110, 130],
         type: 'bar'
-      },{
+      }, {
         data: [120, 200, 150, 80, 70, 110, 130],
         type: 'bar'
-      },{
+      }, {
         data: [120, 900, 150, 80, 70, 110, 130],
         type: 'bar'
       }]
@@ -24,6 +24,7 @@ const BarEcharts = () => {
   }
   return (
     <ReactEcharts
+      style={{ width: '100% !important' }}
       option={getOption()}
       theme={"theme_name"}></ReactEcharts>
   )

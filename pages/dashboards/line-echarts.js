@@ -18,6 +18,7 @@ const LineEcharts = () => {
   }
   return (
     <ReactEcharts
+      style={{width:'100%'}}
       option={getOption()}
       theme={"theme_name"}></ReactEcharts>
   )

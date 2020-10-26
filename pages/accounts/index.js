@@ -10,9 +10,7 @@ const AccountsList = () => {
     { title: '标题', key: 'title', dataIndex: 'title' },
     {
       title: '创建时间', key: 'created', dataIndex: 'created', sorter: {
-        compare: (a) => {
-          console.log(a);
-        },
+        compare: (a) => { },
         multiple: 3,
       },
       render: renderCreated
