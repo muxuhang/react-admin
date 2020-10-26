@@ -5,21 +5,18 @@ import { Breadcrumb } from 'antd'
 import { renderImage, renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
 const TasksList = () => {
-  const title = '工作'
+  const title = '重点工作'
   const https = 'tasks'
-  const [sort, setSort] = useState('created')
   const router = useRouter()
   const columns = [
-    { title: 'id', key: 'id', dataIndex: 'id' },
-    { title: '标签', key: 'collection', dataIndex: 'collection' },
-    { title: '图片', key: 'image', dataIndex: 'image', render: renderImage },
+    // { title: 'id', key: 'id', dataIndex: 'id' },
     { title: '标题', key: 'title', dataIndex: 'title' },
-    {
-      title: '创建时间', key: 'created', dataIndex: 'created', sorter: {
-        compare: () => setSort(sort === 'created' ? '-created' : 'created'),
-      },
-      render: renderCreated
-    },
+    { title: '内容', key: 'content', dataIndex: 'content' },
+    { title: '状态', key: 'type', dataIndex: 'type' },
+    { title: '总数', key: 'total', dataIndex: 'total' },
+    { title: '已完成', key: 'complete', dataIndex: 'complete' },
+    { title: '截止时间', key: 'endtime', dataIndex: 'endtime' },
+    { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
         <a onClick={() => router.push(`/${https}/${v.id}`)}>编辑</a>
@@ -29,13 +26,12 @@ const TasksList = () => {
   return (
     <Box title={title}>
       <Breadcrumb>
-        <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/'>首页</a></Breadcrumb.Item>
         <Breadcrumb.Item>{title}</Breadcrumb.Item>
       </Breadcrumb>
       <Tables
         https={https}
         title={title}
-        sort={sort}
         columns={columns} />
     </Box>
   )

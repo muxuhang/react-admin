@@ -12,6 +12,7 @@
     "braft-editor": "^2.3.9",
     "echarts": "^4.9.0",
     "echarts-for-react": "^2.0.16",
+    "moment": "^2.29.1",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -7,6 +7,7 @@ import {
   DesktopOutlined,
   ContainerOutlined,
   MailOutlined,
+  ProjectOutlined
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useRouter } from 'next/router';
@@ -19,7 +20,7 @@ const LeftMenu = ({ collapsed }) => {
     { name: '首页', path: '/', icon: <HomeOutlined /> },
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
     { name: '广告', path: '/ads', icon: <HomeOutlined /> },
-    // { name: '媒体附件', path: '/attachments', icon: <InsertPhoto /> },
+    { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
     // { name: '简单页面', path: '/flatpages', icon: <Note /> }
   ]
   return (

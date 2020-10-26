@@ -3,7 +3,7 @@ import { Router, useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import network from "../utils/network"
 const Tables = (props) => {
-  const { https, title, sort, columns } = props
+  const { https, title, sort = '', columns } = props
   const router = useRouter()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
