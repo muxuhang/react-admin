@@ -18,7 +18,6 @@ const network = async (
     body: body ? JSON.stringify(body) : null
   })
     .then(res => {
-      console.log(res);
       if (!res.ok) {
         if (res.status === 401) {
           Router.push('login')
@@ -29,6 +28,7 @@ const network = async (
       }
       return res
     })
+    .then((res) => res.json())
     .then(res => {
       callBack(res)
     })

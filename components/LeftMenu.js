@@ -7,6 +7,7 @@ import {
   DesktopOutlined,
   ContainerOutlined,
   MailOutlined,
+  AlignRightOutlined,
   ProjectOutlined
 } from '@ant-design/icons';
 import { Menu } from 'antd';
@@ -21,7 +22,7 @@ const LeftMenu = ({ collapsed }) => {
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
     { name: '广告', path: '/ads', icon: <HomeOutlined /> },
     { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
-    // { name: '简单页面', path: '/flatpages', icon: <Note /> }
+    { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> }
   ]
   return (
     <Menu

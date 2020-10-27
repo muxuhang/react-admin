@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^3.8.1",
     "antd": "^4.7.2",
-    "braft-editor": "^2.3.9",
     "echarts": "^4.9.0",
     "echarts-for-react": "^2.0.16",
     "moment": "^2.29.1",

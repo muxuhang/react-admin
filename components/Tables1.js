@@ -107,7 +107,7 @@ const Tables = (props) => {
           selectedRowKeys,
           onChange: (v) => setSelectedRowKeys(v),
         }}
-        rowKey='id'
+        rowKey='_id'
       ></Table>
     )
   }

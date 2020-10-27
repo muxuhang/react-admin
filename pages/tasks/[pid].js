@@ -4,15 +4,16 @@ import Box from '../../components/box';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { Breadcrumb, Button, Col, DatePicker, Image, Input, message, Row } from 'antd';
+import { Breadcrumb, Button, Col, DatePicker, Image, Input, InputNumber, message, Row, Select } from 'antd';
+import moment from 'moment'
 
 const task = () => {
   const [details, setDetails] = useState({
     title: '',
     content: '',
-    type: '',
-    total: '',
-    complete: '',
+    type: '进行中',
+    total: 0,
+    complete: 0,
     endtime: '',
   })
   const router = useRouter()
@@ -22,7 +23,7 @@ const task = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/task/${pid}`, null, (res) => {
+    network('GET', `/tasks/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -62,11 +63,13 @@ const task = () => {
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
       {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ padding: '4px 0' }}>id</Col>
-        <Col xs={24} sm={14}><Input value={details.id} disabled></Input></Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>id</Col>
+        <Col xs={24} sm={14}>
+          <Input value={details.id} disabled></Input>
+        </Col>
       </Row>}
       <Row gutter={[8, 16]}>
-        <Col xs={4}>标题</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
         <Col xs={24} sm={14}>
           <Input
             onChange={(e) => changeText(e.target.value, 'title')}
@@ -74,44 +77,49 @@ const task = () => {
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>内容</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>内容</Col>
         <Col xs={24} sm={14}>
-          <Input
+          <Input.TextArea
+            rows={4}
             onChange={(e) => changeText(e.target.value, 'content')}
-            value={details.content}></Input>
+            value={details.content}></Input.TextArea>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>状态</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>状态</Col>
         <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'type')}
-            value={details.type}></Input>
+          <Select
+            value={details.type}
+            onChange={(e) => changeText(e, 'type')}>
+            <Select.Option value='进行中'>进行中</Select.Option>
+            <Select.Option value='已完成'>已完成</Select.Option>
+            <Select.Option value='已超时'>已超时</Select.Option>
+          </Select>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>总数</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>总数</Col>
         <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'total')}
-            value={details.total}></Input>
+          <InputNumber
+            onChange={(e) => changeText(e, 'total')}
+            value={details.total}></InputNumber>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
         <Col xs={4}>已完成</Col>
         <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'complete')}
-            value={details.complete}></Input>
+          <InputNumber
+            onChange={(e) => changeText(e, 'complete')}
+            value={details.complete}></InputNumber>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>截止时间</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>截止时间</Col>
         <Col xs={24} sm={14}>
           <DatePicker
-           value={details.endtime}
-          onChange={(e) => changeText(e.target.value, 'endtime')}
-            ></DatePicker>
+            value={details.endtime ? moment(details.endtime) : null}
+            onChange={(date, dateString) => changeText(dateString, 'endtime')}
+          ></DatePicker>
         </Col>
       </Row>
       {pid !== 'created' && <Row gutter={[8, 16]}>
@@ -121,12 +129,17 @@ const task = () => {
         </Col>
       </Row>}
       {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4}>修改时间</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>修改时间</Col>
         <Col xs={24} sm={14}>
           <Input value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></Input></Col>
       </Row>}
       <Row gutter={[8, 16]}>
-        <Button onClick={!details.id ? saveTasks : changeTasks}>保存</Button>
+        <Button
+          type='primary'
+          style={{marginTop:30}}
+          onClick={!details.id ?
+            saveTasks :
+            changeTasks}>保存</Button>
       </Row>
     </Box>
   )
