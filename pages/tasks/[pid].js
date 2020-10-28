@@ -45,7 +45,14 @@ const task = () => {
   }
   // 修改
   const changeTasks = async () => {
-    const form = details
+    const form = {
+      title: details.title,
+      content: details.content,
+      type: details.type,
+      total: details.total,
+      complete: details.complete,
+      endtime: details.endtime,
+    }
     network('PUT', `/tasks/${pid}`, form, (res) => {
       if (res.success) {
         message.success('保存成功')
@@ -62,12 +69,6 @@ const task = () => {
         <Breadcrumb.Item><a href='/tasks'>重点工作</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
-      {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>id</Col>
-        <Col xs={24} sm={14}>
-          <Input value={details.id} disabled></Input>
-        </Col>
-      </Row>}
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
         <Col xs={24} sm={14}>
@@ -136,8 +137,8 @@ const task = () => {
       <Row gutter={[8, 16]}>
         <Button
           type='primary'
-          style={{marginTop:30}}
-          onClick={!details.id ?
+          style={{ marginTop: 30 }}
+          onClick={!details._id ?
             saveTasks :
             changeTasks}>保存</Button>
       </Row>

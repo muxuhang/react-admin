@@ -139,10 +139,4 @@ const Tables = (props) => {
     </>
   )
 }
-const styles = {
-  editInput: {
-    maxWidth: 200
-  }
-}
-
 export default Tables

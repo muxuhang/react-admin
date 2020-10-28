@@ -4,15 +4,14 @@ import Box from '../../components/box';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { Breadcrumb, Button, Col, Image, Input, message, Row } from 'antd';
-import Grid from 'antd/lib/card/Grid';
-
-const ad = () => {
+import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, message, Row, Select } from 'antd';
+import { Editor } from '@tinymce/tinymce-react';
+const inbox = () => {
   const [details, setDetails] = useState({
-    collection: '',
-    image: '',
+    tpye: '',
     title: '',
-    url: ''
+    content: '',
+    persions: []
   })
   const router = useRouter()
   const { pid } = router.query
@@ -21,7 +20,7 @@ const ad = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/ads/admin/${pid}`, null, (res) => {
+    network('GET', `/inbox/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -30,13 +29,13 @@ const ad = () => {
     setDetails(form)
   }
   // 创建新的
-  const saveAds = async () => {
-    const form = details
-    if (!form.image || !form.collection) {
-      message.info('标签和图片必传')
-      return
+  const saveInbox = async () => {
+    const form = {
+      title: details.title,
+      tag: details.tag,
+      content: details.content,
     }
-    network('POST', '/ads/admin', form, (res) => {
+    network('POST', '/inbox/', form, (res) => {
       if (res.success) {
         message.success('保存成功')
         router.back()
@@ -46,14 +45,14 @@ const ad = () => {
     })
   }
   // 修改
-  const changeAds = async () => {
+  const changeInbox = async () => {
     const form = {
-      collection: details.collection,
-      image: details.image,
+      tpye: details.type,
       title: details.title,
-      url: details.url
+      content: details.content,
+      persions: details.persions
     }
-    network('PUT', `/ads/admin/${pid}`, form, (res) => {
+    network('PUT', `/inbox/${pid}`, form, (res) => {
       if (res.success) {
         message.success('保存成功')
         router.back()
@@ -66,19 +65,19 @@ const ad = () => {
     <Box>
       <Breadcrumb style={{ paddingBottom: 16 }}>
         <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
-        <Breadcrumb.Item><a href='/ads'>广告图</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/inbox'>重点工作</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>标签</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>标签</Col>
         <Col xs={24} sm={14}>
           <Input
-            onChange={(e) => changeText(e.target.value, 'collection')}
-            value={details.collection}></Input>
+            onChange={(e) => changeText(e.target.value, 'tag')}
+            value={details.tag}></Input>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>标题</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
         <Col xs={24} sm={14}>
           <Input
             onChange={(e) => changeText(e.target.value, 'title')}
@@ -86,20 +85,9 @@ const ad = () => {
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4}>图片</Col>
-        <Col xs={24} sm={14}>
-          <Image src={details.image} style={{ maxWidth: 300, marginBottom: 16 }} alt=''></Image>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'image')}
-            value={details.image}></Input>
-        </Col>
-      </Row>
-      <Row gutter={[8, 16]}>
-        <Col xs={4}>链接</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'url')}
-            value={details.url}></Input>
+        <Col xs={4} style={{ lineHeight: '32px' }}>内容</Col>
+        <Col xs={24} sm={20}>
+
         </Col>
       </Row>
       {pid !== 'created' && <Row gutter={[8, 16]}>
@@ -109,14 +97,19 @@ const ad = () => {
         </Col>
       </Row>}
       {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4}>修改时间</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>修改时间</Col>
         <Col xs={24} sm={14}>
           <Input value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></Input></Col>
       </Row>}
       <Row gutter={[8, 16]}>
-        <Button onClick={!details._id ? saveAds : changeAds}>保存</Button>
+        <Button
+          type='primary'
+          style={{ marginTop: 30 }}
+          onClick={!details._id ?
+            saveInbox :
+            changeInbox}>保存</Button>
       </Row>
     </Box>
   )
 }
-export default ad
+export default inbox

@@ -41,7 +41,11 @@ const flatpages = () => {
   }
   // 修改
   const changeFlatpages = async () => {
-    const form = details
+    const form = {
+      title: details.title,
+      tag: details.tag,
+      content: details.content,
+    }
     network('PUT', `/flatpages/${pid}`, form, (res) => {
       if (res.success) {
         message.success('保存成功')
@@ -79,17 +83,11 @@ const flatpages = () => {
         <Col xs={24} sm={20}>
           <Editor
             id='editor'
-            init={{language:'zh_CN'}}
+            init={{ language: 'zh_CN' }}
             apiKey="ylsabkd70mkbrxazn61lb056svezauol1n0nl070pvyfv6v0"
-            initialValue={details.content}
-            onChange={(e)=>{
-              console.log(e);
-            }}
+            value={details.content}
+            onEditorChange={e => changeText(e, 'content')}
           />
-          {/* {BraftEditor ? <BraftEditor
-            style={{ border: '1px solid #d9d9d9' }}
-            onChange={(e) => changeText(e.toHTML(), 'content')}
-          ></BraftEditor> : null} */}
         </Col>
       </Row>
       {pid !== 'created' && <Row gutter={[8, 16]}>
@@ -107,7 +105,7 @@ const flatpages = () => {
         <Button
           type='primary'
           style={{ marginTop: 30 }}
-          onClick={!details.id ?
+          onClick={!details._id ?
             saveFlatpages :
             changeFlatpages}>保存</Button>
       </Row>

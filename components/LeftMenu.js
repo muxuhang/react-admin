@@ -6,7 +6,7 @@ import {
   PieChartOutlined,
   DesktopOutlined,
   ContainerOutlined,
-  MailOutlined,
+  InboxOutlined,
   AlignRightOutlined,
   ProjectOutlined
 } from '@ant-design/icons';
@@ -22,7 +22,8 @@ const LeftMenu = ({ collapsed }) => {
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
     { name: '广告', path: '/ads', icon: <HomeOutlined /> },
     { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
-    { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> }
+    { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
+    { name: '通知', path: '/inbox', icon: <InboxOutlined /> }
   ]
   return (
     <Menu

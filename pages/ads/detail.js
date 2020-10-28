@@ -65,10 +65,6 @@ const AdsDetail = (props) => {
   }
   return (
     <div onClick={() => console.log(1)} {...props}>
-      {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ padding: '4px 0' }}>id</Col>
-        <Col xs={24} sm={14}><Input value={details.id} disabled></Input></Col>
-      </Row>}
       <Row gutter={[8, 16]}>
         <Col xs={4}>标签</Col>
         <Col xs={24} sm={14}>
