@@ -10,7 +10,6 @@ const AdList = () => {
   const [sort, setSort] = useState('created')
   const router = useRouter()
   const columns = [
-    { title: 'id', key: 'id', dataIndex: 'id' },
     { title: '标签', key: 'collection', dataIndex: 'collection' },
     { title: '图片', key: 'image', dataIndex: 'image', render: renderImage },
     { title: '标题', key: 'title', dataIndex: 'title' },
@@ -22,7 +21,7 @@ const AdList = () => {
     },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
-        <a onClick={() => router.push(`/${https}/${v.id}`)}>编辑</a>
+        <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>
       </>)
     }
   ]

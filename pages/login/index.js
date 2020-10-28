@@ -6,11 +6,11 @@ import {
 } from '@ant-design/icons';
 
 import Cookies from 'universal-cookie'
-import { Button, Card, Col, Input, Row, Typography } from 'antd'
+import { Button, Card, Col, Image, Input, Row, Typography } from 'antd'
 import network from '../../utils/network'
 const { Title } = Typography
 const Login = (props) => {
-  const redirect = '/profile'
+  const redirect = '/'
   const [data, setData] = useState({ username: '', password: '' })
   const [errors, setErrors] = useState({ username: false, password: false })
   const handleChange = event => {
@@ -42,6 +42,7 @@ const Login = (props) => {
       password: data.password
     }, (res) => {
       const cookies = new Cookies()
+      console.log(res);
       cookies.set('access', res.access, { path: '/' })
       cookies.set('refresh', res.refresh, { path: '/' })
       Router.push(redirect)
@@ -52,44 +53,50 @@ const Login = (props) => {
   })
 
   return (
-    <Row
-      gutter={[12, 12]}
-      style={{ height: '100%', backgroundColor: '#1890ff' }}
-      align={'middle'}>
-      <Col
-        style={{ maxWidth: 450, width: '100%', margin: 'auto' }}>
-        <Card style={{ borderRadius: 5 }}>
-          <Title level={3}>纸坊镇重点工作亮化考核台账系统</Title>
-          <Input
-            margin="dense"
-            label="用户名"
-            name="username"
-            style={{ marginTop: 10 }}
-            placeholder='请输入用户名'
-            addonBefore={<UserOutlined />}
-            onChange={handleChange}
-            value={data.username}
-            error={errors.username}
-            required />
-          <Input
-            label="密码"
-            type="password"
-            name="password"
-            placeholder='请输入密码'
-            addonBefore={<LockOutlined />}
-            style={{ marginTop: 10, marginBottom: 30 }}
-            value={data.password}
-            error={errors.password}
-            onChange={handleChange}
-            required />
-          <Button
-            onClick={handleSubmit}
-            type='primary'
-            style={{ width: '100%' }}
-            disabled={!checkForm()}>登 录</Button>
-        </Card>
-      </Col>
-    </Row>
+    <div style={{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: '#1890ff',
+      justifyContent: 'center'
+    }}>
+      <Row
+        gutter={[12, 12]}
+        align={'middle'}>
+        <Col
+          style={{ maxWidth: 440, width: '96%', margin: "auto" }}>
+          <Card style={{ borderRadius: 5 }}>
+            <Title level={3}>纸坊镇考核台账系统</Title>
+            <Input
+              margin="dense"
+              label="用户名"
+              name="username"
+              style={{ marginTop: 10 }}
+              placeholder='请输入用户名'
+              addonBefore={<UserOutlined />}
+              onChange={handleChange}
+              value={data.username}
+              required />
+            <Input
+              label="密码"
+              type="password"
+              name="password"
+              placeholder='请输入密码'
+              addonBefore={<LockOutlined />}
+              style={{ marginTop: 10, marginBottom: 30 }}
+              value={data.password}
+              onChange={handleChange}
+              required />
+            <Button
+              onClick={handleSubmit}
+              type='primary'
+              style={{ width: '100%' }}
+              disabled={!checkForm()}>登 录</Button>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   )
 }
 

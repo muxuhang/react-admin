@@ -11,6 +11,9 @@ const TopMenu = (props) => {
   const renderNotice = () => (
     <div>
       111
+      <div>
+        <a href='/'>查看更多</a>
+      </div>
     </div>
   )
   return (

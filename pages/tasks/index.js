@@ -9,7 +9,6 @@ const TasksList = () => {
   const https = 'tasks'
   const router = useRouter()
   const columns = [
-    // { title: 'id', key: 'id', dataIndex: 'id' },
     { title: '标题', key: 'title', dataIndex: 'title' },
     { title: '内容', key: 'content', dataIndex: 'content' },
     { title: '状态', key: 'type', dataIndex: 'type' },
@@ -19,7 +18,7 @@ const TasksList = () => {
     { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
-        <a onClick={() => router.push(`/${https}/${v.id}`)}>编辑</a>
+        <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>
       </>)
     }
   ]

@@ -4,7 +4,6 @@ import Box from '../../components/box'
 import { renderEdit, renderImage, renderCreated } from '../../utils/renders'
 const AccountsList = () => {
   const columns = [
-    { title: 'id', key: 'id', dataIndex: 'id' },
     { title: '标签', key: 'collection', dataIndex: 'collection' },
     { title: '图片', key: 'image', dataIndex: 'image', render: renderImage },
     { title: '标题', key: 'title', dataIndex: 'title' },

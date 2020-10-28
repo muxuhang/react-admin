@@ -9,7 +9,6 @@ const FlatpagesList = () => {
   const https = 'flatpages'
   const router = useRouter()
   const columns = [
-    // { title: 'id', key: 'id', dataIndex: 'id' },
     { title: '标签', key: 'tag', dataIndex: 'tag' },
     { title: '标题', key: 'title', dataIndex: 'title' },
     { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
