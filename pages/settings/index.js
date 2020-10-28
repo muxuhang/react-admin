@@ -10,7 +10,7 @@ const Settings = () => {
     getSettings()
   }, [])
   const getSettings = () => {
-    network('GET', '/settings/', null, (res) => {
+    network('GET', '/settings', null, (res) => {
       console.log(res);
     })
   }

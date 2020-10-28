@@ -26,8 +26,9 @@ const LeftMenu = ({ collapsed }) => {
     { name: '通知', path: '/inbox', icon: <InboxOutlined /> },
     {
       name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
-        { name: '部门列表', path: '/orgs/departments' },
-        { name: '人员列表', path: '/orgs/staffs' }
+        { name: '部门管理', path: '/orgs/departments' },
+        { name: '区域管理', path: '/orgs/regions' },
+        { name: '人员管理', path: '/orgs/staffs' },
       ]
     },
     { name: '设置', path: '/settings', icon: <SettingOutlined /> },
