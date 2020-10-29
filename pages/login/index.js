@@ -10,6 +10,7 @@ import { Button, Card, Col, Image, Input, Row, Typography } from 'antd'
 import network from '../../utils/network'
 const { Title } = Typography
 const Login = (props) => {
+  const [loading, setLoading] = useState(false)
   const redirect = '/'
   const [data, setData] = useState({ username: '', password: '' })
   const [errors, setErrors] = useState({ username: false, password: false })
@@ -37,16 +38,17 @@ const Login = (props) => {
   }
 
   const handleSubmit = () => {
+    setLoading(true)
     network('post', '/accounts/login', {
       username: data.username,
       password: data.password
     }, (res) => {
       const cookies = new Cookies()
-      console.log(res);
-      cookies.set('access', res.access, { path: '/' })
-      cookies.set('refresh', res.refresh, { path: '/' })
+      cookies.set('access', res.token, { path: '/' })
+      // cookies.set('refresh', res.refresh, { path: '/' })
       Router.push(redirect)
-    })
+      setLoading(false)
+    }, false)
   }
   useEffect(() => {
     Router.prefetch('/')
@@ -91,6 +93,8 @@ const Login = (props) => {
             <Button
               onClick={handleSubmit}
               type='primary'
+              loading={loading}
+              disabled={loading}
               style={{ width: '100%' }}
               disabled={!checkForm()}>登 录</Button>
           </Card>

@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import 'antd/dist/antd.css';
 import './_app.css'
+// import '/path/to/tinymce.min.js'
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;

@@ -10,7 +10,6 @@ const TasksList = () => {
   const router = useRouter()
   const columns = [
     { title: '标题', key: 'title', dataIndex: 'title' },
-    { title: '内容', key: 'content', dataIndex: 'content' },
     { title: '状态', key: 'type', dataIndex: 'type' },
     { title: '总数', key: 'total', dataIndex: 'total' },
     { title: '已完成', key: 'complete', dataIndex: 'complete' },

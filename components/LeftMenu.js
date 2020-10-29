@@ -12,11 +12,12 @@ import {
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 const { SubMenu } = Menu;
 
 const LeftMenu = ({ collapsed }) => {
   const router = useRouter()
-  console.log(router.pathname);
+  const [show, setShow] = useState(true)
   const menulist = [
     { name: '首页', path: '/', icon: <HomeOutlined /> },
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
@@ -38,7 +39,7 @@ const LeftMenu = ({ collapsed }) => {
       defaultSelectedKeys={[router.pathname]}
       mode="inline"
       theme='dark'
-      openKeys={['/orgs']}
+      defaultOpenKeys={['/orgs']}
       collapsed={collapsed}
     >
       <div style={{

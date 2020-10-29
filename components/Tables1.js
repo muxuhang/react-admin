@@ -19,7 +19,7 @@ const Tables = (props) => {
   }, [current, sort])
   // 获取列表数据
   const getList = () => {
-    const getListUrl = `/${https}?limit=${limit}&offset=${(current - 1) * limit}
+    const getListUrl = `/${https}/?limit=${limit}&offset=${(current - 1) * limit}
       ${searchText ? `&search=${searchText}` : ''}
       ${sort ? `&sort=${sort}` : ''}`
     network('GET', getListUrl, null, (res) => {

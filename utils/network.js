@@ -1,16 +1,22 @@
 import { message } from "antd"
 import Router from "next/router"
+import Cookies from 'universal-cookie'
 const network = async (
   method = 'GET',
   url = '',
   body = null,
   callBack = () => nul,
-  useToken = false
+  useToken = true
 ) => {
   let uri = `${process.env.api}${url}`
+
   let headers = {
-    'Content-Type': 'application/json',
-    // 'Authorization': 'Basic ' + btoa('chen:orange0220')
+    'Content-Type': 'application/json'
+  }
+  if (useToken) {
+    const cookies = new Cookies()
+    const access = await cookies.get('access')
+    headers.Authorization = 'Basic ' + access
   }
   fetch(uri, {
     method: method,
