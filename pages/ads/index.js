@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 const AdList = () => {
   const title = '广告图'
   const https = 'ads'
-  const [sort, setSort] = useState('created')
+  const [sort, setSort] = useState('-created')
   const router = useRouter()
   const columns = [
     { title: '标签', key: 'collection', dataIndex: 'collection' },

@@ -4,9 +4,9 @@ import Box from '../../components/box'
 import { Breadcrumb } from 'antd'
 import { renderImage, renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
-const SettingsList = () => {
-  const title = '设置'
-  const https = 'settings'
+const PostsList = () => {
+  const title = '工作动态'
+  const https = 'posts'
   const router = useRouter()
   const columns = [
     { title: '标题', key: 'title', dataIndex: 'title' },
@@ -29,8 +29,9 @@ const SettingsList = () => {
       <Tables
         https={https}
         title={title}
+        useadd={false}
         columns={columns} />
     </Box>
   )
 }
-export default SettingsList
+export default PostsList

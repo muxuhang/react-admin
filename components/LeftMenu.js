@@ -5,7 +5,7 @@ import {
   AppstoreOutlined,
   SettingOutlined,
   DesktopOutlined,
-  ContainerOutlined,
+  BoxPlotOutlined,
   InboxOutlined,
   AlignRightOutlined,
   ProjectOutlined
@@ -33,6 +33,7 @@ const LeftMenu = ({ collapsed }) => {
       ]
     },
     { name: '设置', path: '/settings', icon: <SettingOutlined /> },
+    { name: '工作动态', path: '/posts', icon: <BoxPlotOutlined /> },
   ]
   return (
     <Menu

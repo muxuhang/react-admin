@@ -59,7 +59,7 @@ const flatpages = () => {
     <Box>
       <Breadcrumb style={{ paddingBottom: 16 }}>
         <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
-        <Breadcrumb.Item><a href='/flatpages'>重点工作</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/flatpages'>简单页面</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
       <Row gutter={[8, 16]}>

@@ -3,7 +3,7 @@ import { Router, useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import network from "../utils/network"
 const Tables = (props) => {
-  const { https, title, sort = '', columns } = props
+  const { https, title, sort = '', columns,useadd=true } = props
   const router = useRouter()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,9 +19,7 @@ const Tables = (props) => {
   }, [current, sort])
   // 获取列表数据
   const getList = () => {
-    const getListUrl = `/${https}/?limit=${limit}&offset=${(current - 1) * limit}
-      ${searchText ? `&search=${searchText}` : ''}
-      ${sort ? `&sort=${sort}` : ''}`
+    const getListUrl = `/${https}/?limit=${limit}&offset=${(current - 1) * limit}${searchText ? `&search=${searchText}` : ''}${sort ? `&sort=${sort}` : ''}`
     network('GET', getListUrl, null, (res) => {
       setCount(Math.ceil(res.total / limit));
       setList(res.data ? res.data : [])
@@ -72,7 +70,7 @@ const Tables = (props) => {
         style={{ paddingLeft: 0, paddingRight: 0 }}
         title={title}
         extra={[
-          <Button
+          useadd&&<Button
             key={'1'}
             onClick={() => router.push(`/${https}/created`)}>添加</Button>
         ]}>

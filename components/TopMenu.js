@@ -6,8 +6,10 @@ import {
   UserOutlined,
   SoundOutlined
 } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 const TopMenu = (props) => {
+  const router = useRouter()
   const renderNotice = () => (
     <div>
       111
@@ -27,7 +29,7 @@ const TopMenu = (props) => {
           <MenuFoldOutlined />}
       </Button>
       <div style={{ flex: 1 }}></div>
-      <Popover
+      {/* <Popover
         content={renderNotice}
         placement="bottomRight"
         title="通知">
@@ -38,9 +40,10 @@ const TopMenu = (props) => {
             <SoundOutlined />
           </Badge>
         </Button>
-      </Popover>
+      </Popover> */}
       <Button
         type='text'
+        onClick={()=>router.push('/user')}
         style={styles.button}>
         <UserOutlined />
       </Button>

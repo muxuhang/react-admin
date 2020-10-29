@@ -17,6 +17,9 @@ const network = async (
     const cookies = new Cookies()
     const access = await cookies.get('access')
     headers.Authorization = 'Basic ' + access
+    if (!access || access === undefined || access === 'undefined') {
+      Router.push('login')
+    }
   }
   fetch(uri, {
     method: method,
@@ -25,8 +28,12 @@ const network = async (
   })
     .then(res => {
       if (!res.ok) {
-        if (res.status === 401) {
-          Router.push('login')
+        if (res.status === 400) {
+          message.error(`请求错误: ${res.status}`)
+        }
+        else if (res.status === 401) {
+          // 清除access然后跳转到登录
+          // Router.push('login')
         } else if (res.status >= 500) {
           message.error(`服务器错误: ${res.status}`)
         }
