@@ -9,9 +9,9 @@ const InboxList = () => {
   const https = 'inbox'
   const router = useRouter()
   const columns = [
-    { title: '类型', key: 'type', dataIndex: 'type' },
+    { title: '类型', key: 'collection', dataIndex: 'collection' },
     { title: '标题', key: 'title', dataIndex: 'title' },
-    { title: '内容', key: 'content', dataIndex: 'content' },
+    { title: '内容', key: 'body', dataIndex: 'body' },
     { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
     {
       title: '编辑', key: 'edit', render: (v) => (<>

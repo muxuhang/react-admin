@@ -4,7 +4,7 @@ import Box from '../../components/box';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { Breadcrumb, Button, Col, DatePicker, Modal, Input, InputNumber, message, Row, Select, TreeSelect } from 'antd';
+import { Breadcrumb, Button, Col, DatePicker, Modal, Input, InputNumber, message, Row, Select, TreeSelect, Checkbox } from 'antd';
 import moment from 'moment'
 const { SHOW_PARENT, TreeNode } = TreeSelect;
 const task = () => {
@@ -173,6 +173,12 @@ const task = () => {
           <InputNumber
             onChange={(e) => changeText(e, 'complete')}
             value={details.complete}></InputNumber>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
+        <Col xs={4}>发送到管区</Col>
+        <Col xs={24} sm={14}>
+          <Checkbox></Checkbox>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>

@@ -22,9 +22,7 @@ const LeftMenu = ({ collapsed }) => {
     { name: '首页', path: '/', icon: <HomeOutlined /> },
     { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
     { name: '广告', path: '/ads', icon: <HomeOutlined /> },
-    { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
     { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
-    { name: '通知', path: '/inbox', icon: <InboxOutlined /> },
     {
       name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
         { name: '部门管理', path: '/orgs/departments' },
@@ -34,6 +32,9 @@ const LeftMenu = ({ collapsed }) => {
     },
     { name: '设置', path: '/settings', icon: <SettingOutlined /> },
     { name: '工作动态', path: '/posts', icon: <BoxPlotOutlined /> },
+    
+    { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
+    { name: '通知', path: '/inbox', icon: <InboxOutlined /> },
     { name: '打卡记录', path: '/checkins', icon: <BoxPlotOutlined /> },
   ]
   return (
