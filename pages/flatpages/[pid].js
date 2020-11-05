@@ -9,8 +9,8 @@ import { Editor } from '@tinymce/tinymce-react';
 const flatpages = () => {
   const [details, setDetails] = useState({
     title: '',
-    tag: '',
-    content: ''
+    slug: '',
+    body: ''
   })
   const router = useRouter()
   const { pid } = router.query
@@ -43,8 +43,8 @@ const flatpages = () => {
   const changeFlatpages = async () => {
     const form = {
       title: details.title,
-      tag: details.tag,
-      content: details.content,
+      slug: details.slug,
+      body: details.body,
     }
     network('PUT', `/flatpages/${pid}`, form, (res) => {
       if (res.success) {
@@ -66,8 +66,8 @@ const flatpages = () => {
         <Col xs={4} style={{ lineHeight: '32px' }}>标签</Col>
         <Col xs={24} sm={14}>
           <Input
-            onChange={(e) => changeText(e.target.value, 'tag')}
-            value={details.tag}></Input>
+            onChange={(e) => changeText(e.target.value, 'slug')}
+            value={details.slug}></Input>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
@@ -85,8 +85,8 @@ const flatpages = () => {
             id='editor'
             init={{ language: 'zh_CN' }}
             apiKey="ylsabkd70mkbrxazn61lb056svezauol1n0nl070pvyfv6v0"
-            value={details.content}
-            onEditorChange={e => changeText(e, 'content')}
+            value={details.body}
+            onEditorChange={e => changeText(e, 'body')}
           />
         </Col>
       </Row>

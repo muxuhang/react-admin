@@ -43,6 +43,7 @@ const Login = (props) => {
       username: data.username,
       password: data.password
     }, (res) => {
+      if(!res.token)return
       const cookies = new Cookies()
       cookies.set('access', res.token, { path: '/' })
       // cookies.set('refresh', res.refresh, { path: '/' })
