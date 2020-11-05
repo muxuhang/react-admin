@@ -204,7 +204,7 @@ const task = () => {
           onClick={!details._id ?
             saveTasks :
             changeTasks}>保存</Button>
-        {pid && <Button onClick={confirm} style={{ marginLeft: 20 }} danger>删除</Button>}
+        {pid!=='created' && <Button onClick={confirm} style={{ marginLeft: 20 }} danger>删除</Button>}
       </Row>
     </Box>
   )

@@ -34,6 +34,7 @@ const LeftMenu = ({ collapsed }) => {
     },
     { name: '设置', path: '/settings', icon: <SettingOutlined /> },
     { name: '工作动态', path: '/posts', icon: <BoxPlotOutlined /> },
+    { name: '打卡记录', path: '/checkins', icon: <BoxPlotOutlined /> },
   ]
   return (
     <Menu
