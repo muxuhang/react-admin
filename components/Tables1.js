@@ -3,7 +3,7 @@ import { Router, useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import network from "../utils/network"
 const Tables = (props) => {
-  const { https, title, sort = '', columns,useadd=true } = props
+  const { https, title, sort = '', columns, useadd = true } = props
   const router = useRouter()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
@@ -70,7 +70,7 @@ const Tables = (props) => {
         style={{ paddingLeft: 0, paddingRight: 0 }}
         title={title}
         extra={[
-          useadd&&<Button
+          useadd && <Button
             key={'1'}
             onClick={() => router.push(`/${https}/created`)}>添加</Button>
         ]}>

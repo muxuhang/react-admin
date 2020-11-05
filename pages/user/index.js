@@ -2,6 +2,8 @@ import { Breadcrumb, Col, Input, Row, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import Box from '../../components/box'
 import network from '../../utils/network'
+import Cookies from 'universal-cookie'
+
 const user = () => {
   const title = '个人中心'
   const [details, setDetails] = useState({
@@ -25,6 +27,10 @@ const user = () => {
       getDetails()
     })
   }
+  const clearToken =async () =>{
+    const cookies = new Cookies()
+    await cookies.set('access', res.token, { path: '/' })
+  }
   return (
     <Box>
       <Breadcrumb>
@@ -40,10 +46,19 @@ const user = () => {
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
+        <Col xs={4} style={{ lineHeight: '32px' }}>密码</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>
+          <a href='/change-password'>修改密码</a>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
         <Button
           type='primary'
           style={{ marginTop: 30 }}
           onClick={saveDetails}>保存</Button>
+        <Button
+          style={{ marginTop: 30 }}
+          onClick={clearToken}>退出登录</Button>
       </Row>
     </Box>
   )

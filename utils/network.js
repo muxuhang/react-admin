@@ -16,7 +16,7 @@ const network = async (
   if (useToken) {
     const cookies = new Cookies()
     const access = await cookies.get('access')
-    headers.Authorization = 'Basic ' + access
+    headers.Authorization = 'Bearer ' + access
     if (!access || access === undefined || access === 'undefined') {
       Router.push('login')
     }

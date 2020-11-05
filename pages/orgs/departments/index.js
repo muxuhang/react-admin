@@ -6,7 +6,7 @@ import { renderImage, renderCreated } from '../../../utils/renders'
 import { useRouter } from 'next/router'
 const DepartmentsList = () => {
   const title = '部门管理'
-  const https = 'orgs/departments/'
+  const https = 'orgs/departments'
   const router = useRouter()
   const columns = [
     { title: '类型', key: 'type', dataIndex: 'type' },
@@ -15,7 +15,7 @@ const DepartmentsList = () => {
     { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
-        <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>
+        <a onClick={() => router.push(`/${https}${v._id}`)}>编辑</a>
       </>)
     }
   ]

@@ -6,7 +6,7 @@ import { renderImage, renderCreated } from '../../../utils/renders'
 import { useRouter } from 'next/router'
 const StaffsList = () => {
   const title = '人员管理'
-  const https = 'orgs/staffs/'
+  const https = 'orgs/staffs'
   const router = useRouter()
   const columns = [
     { title: '类型', key: 'type', dataIndex: 'type' },

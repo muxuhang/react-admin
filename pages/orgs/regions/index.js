@@ -6,7 +6,7 @@ import { renderImage, renderCreated } from '../../../utils/renders'
 import { useRouter } from 'next/router'
 const RegionsList = () => {
   const title = '区域管理'
-  const https = 'orgs/regions/'
+  const https = 'orgs/regions'
   const router = useRouter()
   const columns = [
     { title: '类型', key: 'type', dataIndex: 'type' },
