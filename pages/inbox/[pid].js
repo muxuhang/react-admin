@@ -4,20 +4,26 @@ import Box from '../../components/box';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, message, Row, Select } from 'antd';
+import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, message, Row, Select, TreeSelect } from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
+const { SHOW_PARENT, TreeNode } = TreeSelect;
 const inbox = () => {
+  const [users, setUsers] = useState([])
   const [details, setDetails] = useState({
-    tpye: '',
     title: '',
-    content: '',
-    persions: []
+    body: '',
+    receivers: []
   })
   const router = useRouter()
   const { pid } = router.query
   useEffect(() => {
     getData()
   }, [pid])
+  useEffect(() => {
+    network('GET', `/accounts/`, null, (res) => {
+      setUsers(res.data)
+    })
+  }, [])
   const getData = async () => {
     if (!pid || pid === 'created') return
     network('GET', `/inbox/${pid}`, null, (res) => {
@@ -65,17 +71,9 @@ const inbox = () => {
     <Box>
       <Breadcrumb style={{ paddingBottom: 16 }}>
         <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
-        <Breadcrumb.Item><a href='/inbox'>重点工作</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/inbox'>通知</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>标签</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'tag')}
-            value={details.tag}></Input>
-        </Col>
-      </Row>
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
         <Col xs={24} sm={14}>
@@ -87,7 +85,29 @@ const inbox = () => {
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>内容</Col>
         <Col xs={24} sm={20}>
-
+          <Input.TextArea
+            rows={4}
+            onChange={(e) => changeText(e.target.value, 'body')}
+            value={details.body}></Input.TextArea>
+        </Col>
+      </Row>
+      <Row gutter={[8, 16]}>
+        <Col xs={4} style={{ lineHeight: '32px' }}>接收人员</Col>
+        <Col xs={24} sm={14}>
+          <TreeSelect
+            value={details.receivers}
+            style={{ width: '100%' }}
+            treeCheckable
+            showCheckedStrategy={SHOW_PARENT}
+            onChange={(e) => changeText(e, 'receivers')}
+            placeholder='请选择接收人员' >
+            {users && users.map((item) => (
+              <TreeNode
+                title={item.username}
+                value={item._id}
+                key={item._id}></TreeNode>
+            ))}
+          </TreeSelect>
         </Col>
       </Row>
       {pid !== 'created' && <Row gutter={[8, 16]}>

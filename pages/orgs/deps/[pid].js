@@ -6,7 +6,7 @@ import network from '../../../utils/network';
 import utils from '../../../utils/utils';
 import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, message, Row, Select } from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
-const Departments = () => {
+const Deps = () => {
   const [details, setDetails] = useState({
     tpye: '',
     title: '',
@@ -20,7 +20,7 @@ const Departments = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/orgs/departments/${pid}`, null, (res) => {
+    network('GET', `/orgs/deps/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -29,13 +29,13 @@ const Departments = () => {
     setDetails(form)
   }
   // 创建新的
-  const saveDepartments = async () => {
+  const saveDeps = async () => {
     const form = {
       title: details.title,
       tag: details.tag,
       content: details.content,
     }
-    network('POST', '/orgs/departments/', form, (res) => {
+    network('POST', '/orgs/deps/', form, (res) => {
       if (res.success) {
         message.success('保存成功')
         router.back()
@@ -45,14 +45,14 @@ const Departments = () => {
     })
   }
   // 修改
-  const changeDepartments = async () => {
+  const changeDeps = async () => {
     const form = {
       tpye: details.type,
       title: details.title,
       content: details.content,
       persions: details.persions
     }
-    network('PUT', `/orgs/departments/${pid}`, form, (res) => {
+    network('PUT', `/orgs/deps/${pid}`, form, (res) => {
       if (res.success) {
         message.success('保存成功')
         router.back()
@@ -65,7 +65,7 @@ const Departments = () => {
     <Box>
       <Breadcrumb style={{ paddingBottom: 16 }}>
         <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
-        <Breadcrumb.Item><a href='/orgs/departments'>重点工作</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/orgs/deps'>重点工作</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
       <Row gutter={[8, 16]}>
@@ -106,10 +106,10 @@ const Departments = () => {
           type='primary'
           style={{ marginTop: 30 }}
           onClick={!details._id ?
-            saveDepartments :
-            changeDepartments}>保存</Button>
+            saveDeps :
+            changeDeps}>保存</Button>
       </Row>
     </Box>
   )
 }
-export default Departments
+export default Deps

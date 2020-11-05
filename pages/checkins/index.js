@@ -6,9 +6,8 @@ import { renderImage, renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
 const { Text } = Typography
 const CheckinsList = () => {
-  const title = '签到记录'
+  const title = '打卡记录'
   const https = 'checkins'
-  const router = useRouter()
   const columns = [
     { title: '姓名', key: 'user', dataIndex: 'user' },
     { title: '地址', key: 'address', dataIndex: 'address' },

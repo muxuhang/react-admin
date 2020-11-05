@@ -4,9 +4,9 @@ import Box from '../../../components/box'
 import { Breadcrumb } from 'antd'
 import { renderImage, renderCreated } from '../../../utils/renders'
 import { useRouter } from 'next/router'
-const DepartmentsList = () => {
+const DepsList = () => {
   const title = '部门管理'
-  const https = 'orgs/departments'
+  const https = 'orgs/deps'
   const router = useRouter()
   const columns = [
     { title: '类型', key: 'type', dataIndex: 'type' },
@@ -32,4 +32,4 @@ const DepartmentsList = () => {
     </Box>
   )
 }
-export default DepartmentsList
+export default DepsList
