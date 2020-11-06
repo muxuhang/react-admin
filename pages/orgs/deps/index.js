@@ -9,13 +9,12 @@ const DepsList = () => {
   const https = 'orgs/deps'
   const router = useRouter()
   const columns = [
-    { title: '类型', key: 'type', dataIndex: 'type' },
-    { title: '标题', key: 'title', dataIndex: 'title' },
-    { title: '内容', key: 'content', dataIndex: 'content' },
-    { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
+    { title: 'ID', key: '_id', dataIndex: '_id' },
+    { title: '部门', key: 'name', dataIndex: 'name' },
+    { title: '描述', key: 'desc', dataIndex: 'desc' },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
-        <a onClick={() => router.push(`/${https}${v._id}`)}>编辑</a>
+        <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>
       </>)
     }
   ]

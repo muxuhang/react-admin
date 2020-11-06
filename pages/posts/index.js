@@ -9,11 +9,10 @@ const PostsList = () => {
   const https = 'posts'
   const router = useRouter()
   const columns = [
-    { title: '标题', key: 'title', dataIndex: 'title' },
-    { title: '姓名', key: 'username', dataIndex: 'username' },
-    { title: '留言', key: 'leave', dataIndex: 'leave' },
-    { title: '点赞', key: 'likes', dataIndex: 'likes' },
-    { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
+    { title: '姓名', key: '_id', dataIndex: '_id' },
+    { title: '动态', key: 'text', dataIndex: 'text' },
+    { title: '状态', key: 'status', dataIndex: 'status' },
+    { title: '时间', key: 'created', dataIndex: 'created', render: renderCreated },
     // {
     //   title: '编辑', key: 'edit', render: (v) => (<>
     //     <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>

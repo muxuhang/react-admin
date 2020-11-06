@@ -8,10 +8,8 @@ import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, m
 import { Editor } from '@tinymce/tinymce-react';
 const Deps = () => {
   const [details, setDetails] = useState({
-    tpye: '',
-    title: '',
-    content: '',
-    persions: []
+    name: '',
+    desc: ''
   })
   const router = useRouter()
   const { pid } = router.query
@@ -31,9 +29,8 @@ const Deps = () => {
   // 创建新的
   const saveDeps = async () => {
     const form = {
-      title: details.title,
-      tag: details.tag,
-      content: details.content,
+      name: details.name,
+      desc: details.desc,
     }
     network('POST', '/orgs/deps/', form, (res) => {
       if (res.success) {
@@ -47,10 +44,8 @@ const Deps = () => {
   // 修改
   const changeDeps = async () => {
     const form = {
-      tpye: details.type,
-      title: details.title,
-      content: details.content,
-      persions: details.persions
+      name: details.name,
+      desc: details.desc,
     }
     network('PUT', `/orgs/deps/${pid}`, form, (res) => {
       if (res.success) {
@@ -69,38 +64,21 @@ const Deps = () => {
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
       <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>标签</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>部门</Col>
         <Col xs={24} sm={14}>
           <Input
-            onChange={(e) => changeText(e.target.value, 'tag')}
-            value={details.tag}></Input>
+            onChange={(e) => changeText(e.target.value, 'name')}
+            value={details.name}></Input>
         </Col>
       </Row>
       <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
+        <Col xs={4} style={{ lineHeight: '32px' }}>描述</Col>
         <Col xs={24} sm={14}>
           <Input
-            onChange={(e) => changeText(e.target.value, 'title')}
-            value={details.title}></Input>
+            onChange={(e) => changeText(e.target.value, 'desc')}
+            value={details.desc}></Input>
         </Col>
       </Row>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>内容</Col>
-        <Col xs={24} sm={20}>
-
-        </Col>
-      </Row>
-      {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4}>创建时间</Col>
-        <Col xs={24} sm={14} flex={1}>
-          <Input value={utils.timeformat(details.created)} disabled></Input>
-        </Col>
-      </Row>}
-      {pid !== 'created' && <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>修改时间</Col>
-        <Col xs={24} sm={14}>
-          <Input value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></Input></Col>
-      </Row>}
       <Row gutter={[8, 16]}>
         <Button
           type='primary'

@@ -90,6 +90,7 @@ const Login = (props) => {
               style={{ marginTop: 10, marginBottom: 30 }}
               value={data.password}
               onChange={handleChange}
+              onKeyUp={handleSubmit}
               required />
             <Button
               onClick={handleSubmit}
