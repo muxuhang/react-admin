@@ -12,7 +12,7 @@ const inbox = () => {
   const [details, setDetails] = useState({
     title: '',
     body: '',
-    receivers: []
+    users: []
   })
   const router = useRouter()
   const { pid } = router.query
@@ -26,7 +26,7 @@ const inbox = () => {
   }, [])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/inbox/${pid}`, null, (res) => {
+    network('GET', `/inbox/records/${pid}`, null, (res) => {
       setDetails(res)
     })
   }
@@ -38,8 +38,8 @@ const inbox = () => {
   const saveInbox = async () => {
     const form = {
       title: details.title,
-      tag: details.tag,
-      content: details.content,
+      body: details.body,
+      users: details.users,
     }
     network('POST', '/inbox/', form, (res) => {
       if (res.success) {
@@ -53,10 +53,9 @@ const inbox = () => {
   // 修改
   const changeInbox = async () => {
     const form = {
-      tpye: details.type,
       title: details.title,
-      content: details.content,
-      persions: details.persions
+      body: details.body,
+      users: details.users,
     }
     network('PUT', `/inbox/${pid}`, form, (res) => {
       if (res.success) {
@@ -95,11 +94,11 @@ const inbox = () => {
         <Col xs={4} style={{ lineHeight: '32px' }}>接收人员</Col>
         <Col xs={24} sm={14}>
           <TreeSelect
-            value={details.receivers}
+            value={details.users}
             style={{ width: '100%' }}
             treeCheckable
             showCheckedStrategy={SHOW_PARENT}
-            onChange={(e) => changeText(e, 'receivers')}
+            onChange={(e) => changeText(e, 'users')}
             placeholder='请选择接收人员' >
             {users && users.map((item) => (
               <TreeNode

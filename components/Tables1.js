@@ -19,7 +19,9 @@ const Tables = (props) => {
   }, [current, sort])
   // 获取列表数据
   const getList = () => {
-    const getListUrl = `/${https}/?limit=${limit}&offset=${(current - 1) * limit}${searchText ? `&search=${searchText}` : ''}${sort ? `&sort=${sort}` : ''}`
+    let url = https
+    if(url==='inbox') url = 'inbox/records'
+    const getListUrl = `/${url}/?limit=${limit}&offset=${(current - 1) * limit}${searchText ? `&search=${searchText}` : ''}${sort ? `&sort=${sort}` : ''}`
     network('GET', getListUrl, null, (res) => {
       setCount(Math.ceil(res.total / limit));
       setList(res.data ? res.data : [])
@@ -28,7 +30,9 @@ const Tables = (props) => {
   }
   // 删除选中部分
   const deleteList = () => {
-    network('DELETE', `/${https}/`, {
+    let url = https
+    if(url==='inbox') url = 'inbox/records'
+    network('DELETE', `/${url}/`, {
       ids: selectedRowKeys.toString()
     }, (res) => {
       if (res.success) {
