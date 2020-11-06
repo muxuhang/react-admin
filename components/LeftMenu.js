@@ -25,6 +25,7 @@ const LeftMenu = ({ collapsed }) => {
     { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
     {
       name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
+        { name: '部门结构', path: '/orgs' },
         { name: '部门管理', path: '/orgs/deps' },
         { name: '区域管理', path: '/orgs/regions' },
         { name: '人员管理', path: '/orgs/staffs' },
