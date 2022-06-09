@@ -20,7 +20,7 @@ const inbox = () => {
     getData()
   }, [pid])
   useEffect(() => {
-    network('GET', `/accounts/`, null, (res) => {
+    network('GET', `/users/`, null, (res) => {
       setUsers(res.data)
     })
   }, [])
@@ -42,11 +42,11 @@ const inbox = () => {
       users: details.users,
     }
     network('POST', '/inbox/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -58,11 +58,11 @@ const inbox = () => {
       users: details.users,
     }
     network('PUT', `/inbox/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

@@ -8,17 +8,18 @@ const network = async (
   callBack = () => nul,
   useToken = true
 ) => {
-  let uri = `${process.env.api}${url}`
+  let uri = `${process.env.api}/api${url}`
 
   let headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
   }
   if (useToken) {
     const cookies = new Cookies()
     const access = await cookies.get('access')
     headers.Authorization = 'Bearer ' + access
     if (!access || access === undefined || access === 'undefined') {
-      Router.push('login')
+      // Router.push('login')
     }
   }
   fetch(uri, {
@@ -29,13 +30,13 @@ const network = async (
     .then(res => {
       if (!res.ok) {
         if (res.status === 400) {
-          message.error(`请求错误: ${res.status}`)
+          message.error(res.message || `请求错误: ${res.status}`)
         }
         else if (res.status === 401) {
           // 清除access然后跳转到登录
           // Router.push('login')
         } else if (res.status >= 500) {
-          message.error(`服务器错误: ${res.status}`)
+          message.error(res.message || `服务器错误: ${res.status}`)
         }
         throw Error(res.statusText)
       }
@@ -46,7 +47,7 @@ const network = async (
       callBack(res)
     })
     .catch(err => {
-      console.error(err)
+      console.error('请求失败: ', err)
       callBack({ data: null })
     })
 }

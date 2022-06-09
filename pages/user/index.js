@@ -14,7 +14,6 @@ const user = () => {
   }, [])
   const getDetails = () => {
     network('GET', `/accounts/profile/`, null, (res) => {
-      console.log(res);
       setDetails(res)
     })
   }

@@ -20,9 +20,8 @@ const LeftMenu = ({ collapsed }) => {
   const [show, setShow] = useState(true)
   const menulist = [
     { name: '首页', path: '/', icon: <HomeOutlined /> },
-    { name: '用户列表', path: '/accounts', icon: <UsergroupAddOutlined /> },
-    { name: '广告', path: '/ads', icon: <HomeOutlined /> },
-    { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
+    { name: '用户列表', path: '/users', icon: <UsergroupAddOutlined /> },
+    // { name: '广告', path: '/ads', icon: <HomeOutlined /> },
     {
       name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
         { name: '部门结构', path: '/orgs' },
@@ -37,6 +36,7 @@ const LeftMenu = ({ collapsed }) => {
     { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
     { name: '通知', path: '/inbox', icon: <InboxOutlined /> },
     { name: '打卡记录', path: '/checkins', icon: <BoxPlotOutlined /> },
+    { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
   ]
   return (
     <Menu

@@ -65,7 +65,7 @@ const Tables = ({ title, https, tableHead, limit = 5, useEdit = true }) => {
     network('DELETE', `/${https}/admin/bulk_delete`, {
       ids: selected.toString()
     }, (res) => {
-      if (res.success) {
+      if (res._id) {
         getList()
         setSelected([])
         enqueueSnackbar('删除成功', { variant: 'success' })

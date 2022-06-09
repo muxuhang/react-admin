@@ -36,11 +36,11 @@ const Regions = () => {
       content: details.content,
     }
     network('POST', '/orgs/regions/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -53,11 +53,11 @@ const Regions = () => {
       persions: details.persions
     }
     network('PUT', `/orgs/regions/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

@@ -43,11 +43,11 @@ const AdsDetail = (props) => {
       return
     }
     network('POST', '/ads/admin', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('创建成功')
         props.closeModal()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -55,11 +55,11 @@ const AdsDetail = (props) => {
   const changeAds = async () => {
     const form = details
     network('PUT', `/ads/admin/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('修改成功')
         props.closeModal()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

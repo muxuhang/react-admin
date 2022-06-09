@@ -53,21 +53,21 @@ const task = () => {
       expired: details.expired,
     }
     network('POST', '/tasks/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }// 删除
   const deleteTasks = async () => {
     network('DELETE', `/tasks/${pid}`, null, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('删除成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -96,11 +96,11 @@ const task = () => {
       expired: details.expired,
     }
     network('PUT', `/tasks/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

@@ -36,11 +36,11 @@ const Staffs = () => {
       content: details.content,
     }
     network('POST', '/orgs/staffs/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -53,11 +53,11 @@ const Staffs = () => {
       persions: details.persions
     }
     network('PUT', `/orgs/staffs/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

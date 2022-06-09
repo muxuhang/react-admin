@@ -38,12 +38,13 @@ const Login = (props) => {
   }
 
   const handleSubmit = () => {
+    if (loading || !checkForm()) return
     setLoading(true)
     network('post', '/accounts/login', {
       username: data.username,
       password: data.password
     }, (res) => {
-      if(!res.token)return
+      if (!res.token) return
       const cookies = new Cookies()
       cookies.set('access', res.token, { path: '/' })
       // cookies.set('refresh', res.refresh, { path: '/' })
@@ -90,15 +91,15 @@ const Login = (props) => {
               style={{ marginTop: 10, marginBottom: 30 }}
               value={data.password}
               onChange={handleChange}
-              onKeyUp={handleSubmit}
+              // onKeyUp={handleSubmit}
               required />
             <Button
               onClick={handleSubmit}
               type='primary'
               loading={loading}
-              disabled={loading}
               style={{ width: '100%' }}
-              disabled={!checkForm()}>登 录</Button>
+              disabled={loading || !checkForm()}
+            >登 录</Button>
           </Card>
         </Col>
       </Row>

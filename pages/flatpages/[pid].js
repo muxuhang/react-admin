@@ -31,11 +31,11 @@ const flatpages = () => {
   const saveFlatpages = async () => {
     const form = details
     network('POST', '/flatpages/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -47,11 +47,11 @@ const flatpages = () => {
       body: details.body,
     }
     network('PUT', `/flatpages/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

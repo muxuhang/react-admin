@@ -33,11 +33,11 @@ const Deps = () => {
       desc: details.desc,
     }
     network('POST', '/orgs/deps/', form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('创建失败')
+        message.error(res.message ||'创建失败')
       }
     })
   }
@@ -48,11 +48,11 @@ const Deps = () => {
       desc: details.desc,
     }
     network('PUT', `/orgs/deps/${pid}`, form, (res) => {
-      if (res.success) {
+      if (res._id) {
         message.success('保存成功')
         router.back()
       } else {
-        message.error('修改失败')
+        message.error(res.message ||'修改失败')
       }
     })
   }

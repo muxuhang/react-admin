@@ -7,7 +7,7 @@ const renderEdit = (v) => (
   </div>
 )
 const renderCreated = (v) => {
-  return <span>{utils.timeformat(v)}</span>
+  return <span>{v ? utils.timeformat(v) : '0000-00-00 00:00:00'}</span>
 }
 export {
   renderImage,

@@ -20,22 +20,20 @@ const Tables = (props) => {
   // 获取列表数据
   const getList = () => {
     let url = https
-    if(url==='inbox') url = 'inbox/records'
     const getListUrl = `/${url}/?limit=${limit}&offset=${(current - 1) * limit}${searchText ? `&search=${searchText}` : ''}${sort ? `&sort=${sort}` : ''}`
     network('GET', getListUrl, null, (res) => {
-      setCount(Math.ceil(res.total / limit));
-      setList(res.data ? res.data : [])
+      setCount(Math.ceil(res.count / limit));
+      setList(res.results ? res.results : [])
       setLoading(false)
     })
   }
   // 删除选中部分
   const deleteList = () => {
     let url = https
-    if(url==='inbox') url = 'inbox/records'
     network('DELETE', `/${url}/`, {
       ids: selectedRowKeys.toString()
     }, (res) => {
-      if (res.success) {
+      if (res.deletedCount) {
         getList()
         setSelectedRowKeys([])
         message.info('删除成功')

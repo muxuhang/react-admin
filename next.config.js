@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    api: 'http://192.168.0.186:5000',
+    api: 'http://127.0.0.1:8888',
     // api: 'http://gas2.md1927.com'
   }
 }
