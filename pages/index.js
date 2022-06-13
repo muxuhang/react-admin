@@ -3,7 +3,7 @@ import Box from '../components/box'
 import Dashboards from './dashboards'
 const Home = () => {
   return (
-    <Box title="纸坊镇">
+    <Box title="后台">
       <Dashboards />
     </Box>
   )

@@ -49,14 +49,13 @@ else {
         text = text.replace(/Demo/g, Name)
         text = text.replace('{/* 标题 */}', title)
         const insertIndex = text.indexOf('columns = [')
-        if (insertIndex >= 0) {
+        if (insertIndex >= 0 && fs.existsSync(`jsons/${name}.json`)) {
           const insertText = insertJsons()
           text = text.substring(0, insertIndex + 11) + insertText + text.substring(insertIndex + 11)
         }
         const insertIndex2 = text.indexOf('{/* 输入 */}')
-        if (insertIndex2 >= 0) {
+        if (insertIndex2 >= 0 && fs.existsSync(`jsons/${name}.json`)) {
           const insertText = insertJsons2()
-          console.log(insertText);
           text = text.substring(0, insertIndex2) + insertText + text.substring(insertIndex2)
         }
         file.push(text)
@@ -68,7 +67,7 @@ else {
     return new Promise((res, rej) => {
       (async function () {
         for (let i in file) {
-          if(fs.existsSync(`${basepath}${i == 0 ? 'index' : '[pid]'}.js`))return
+          if (fs.existsSync(`${basepath}${i == 0 ? 'index' : '[pid]'}.js`)) return
           await fs.writeFile(`${basepath}${i == 0 ? 'index' : '[pid]'}.js`,
             file[i], (err) => {
               if (err) rej(err)
@@ -79,7 +78,7 @@ else {
     })
   }
   let insertJsons = function () {
-    let jsons = JSON.parse(fs.readFileSync(`jsons/${name}.json`).toString());
+    let jsons = JSON.parse(fs.readFileSync(`jsons/${name}.json`).toString())
     const list = Object.keys(jsons)
     let result = ``
     list.map((item) => {
