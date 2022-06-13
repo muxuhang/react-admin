@@ -1,0 +1,22 @@
+{
+  "username": {
+    "value": "用户名",
+    "type": "String"
+  },
+  "number": {
+    "value": "数量",
+    "type": "Number"
+  },
+  "obj": {
+    "value": "对象",
+    "obj": "Object"
+  },
+  "list": {
+    "value": "列表",
+    "obj": "Array"
+  },
+  "time": {
+    "value": "时间",
+    "obj": "Date"
+  }
+}

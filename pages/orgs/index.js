@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import Tables from '../../components/Tables1'
 import Box from '../../components/box'
-import { Breadcrumb, Button, Input, Modal, Popover, Skeleton, Tree, Typography } from 'antd'
+import { Breadcrumb, Button, Empty, Input, Modal, Popover, Skeleton, Tree, Typography } from 'antd'
 import {
   PlusCircleOutlined,
   EditOutlined
 } from '@ant-design/icons';
 import { useRouter } from 'next/router'
 import network from '../../utils/network'
-const { Text } = Typography
 const DepsList = () => {
   const title = '部门结构'
   const router = useRouter()
-  const [orgs, setOrgs] = useState([])
+  const [orgs, setOrgs] = useState(null)
   useEffect(() => {
     getList()
   }, [])
   // 获取列表数据
   const getList = () => {
     network('GET', `/orgs/`, null, (res) => {
-      setOrgs(res.structure)
+      setOrgs([{title:'123',key:'0'}] || [])
     })
   }
   // 修改文本
   const saveOrgs = () => {
-    network('PUT', `/orgs/`, { structure: orgs }, (res) => {
-      console.log(res);
-    })
+    console.log(orgs);
+    // network('PATCH', `/orgs/`, orgs, (res) => {
+    // })
   }
   const loop = (data, key, callback) => {
+    // if (!data.length) {
+    //   return callback({}, '0-0', data);
+    // }
     for (let i = 0; i < data.length; i++) {
       if (data[i].key === key) {
         return callback(data[i], i, data);
@@ -89,11 +90,11 @@ const DepsList = () => {
   // 添加修改
   const [val, setVal] = useState({
     key: '',
-    name: ''
+    title: ''
   })
   const [newVal, setNewVal] = useState({
     key: '',
-    name: ''
+    title: ''
   })
   const [type, setType] = useState('add')
   const [visible, setVisible] = useState(false)
@@ -109,7 +110,7 @@ const DepsList = () => {
         <Button type='link' onClick={() => changeArr(true, e, 'edit')}><EditOutlined />编辑</Button>
         <Button type='link' onClick={() => changeArr(true, e, 'add')}><PlusCircleOutlined />添加</Button>
       </>} trigger="hover">
-        {e.name}
+        {e.title}
       </Popover>
     </>
   }
@@ -128,20 +129,21 @@ const DepsList = () => {
     if (type === 'edit') {
       loop(data, dropKey, item => {
         item.key = genID()
-        item.name = val.name
+        item.title = val.title
       });
       setOrgs(data)
       setVisible(false)
-      setVal({ key: '', name: '' })
+      setVal({ key: '', title: '' })
     } else {
       loop(data, dropKey, item => {
+        console.log('item', item);
         item.children = item.children || [];
         let v = { ...newVal, key: genID() }
         item.children.push(v);
       });
       setOrgs(data)
       setVisible(false)
-      setNewVal({ key: '', name: '' })
+      setNewVal({ key: '', title: '' })
     }
   }
   // 生成随机id
@@ -153,11 +155,11 @@ const DepsList = () => {
       <Modal
         title='添加/修改'
         visible={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={() => changeArr(true, null, 'add')}
         onOk={changeItem}>
         <Input
-          value={type === 'edit' ? val.name : newVal.name}
-          onChange={(e) => changeVal(e.target.value, 'name')}
+          value={type === 'edit' ? val.title : newVal.title}
+          onChange={(e) => changeVal(e.target.value, 'title')}
           placeholder='请输入名称' />
       </Modal>
     )
@@ -169,13 +171,15 @@ const DepsList = () => {
         <Breadcrumb.Item>{title}</Breadcrumb.Item>
       </Breadcrumb>
       {renerModal()}
-      {orgs.length ? <Tree
+      {orgs ? (orgs.length ? <Tree
         treeData={orgs}
         showLine
         draggable
         onDrop={onDrop}
         titleRender={renderTitle}
-        defaultExpandAll /> : <Skeleton></Skeleton>}
+        defaultExpandAll /> : <Empty>
+        <Button onClick={() => setVisible(true)}>添加</Button>
+      </Empty>) : <Skeleton></Skeleton>}
       <Button onClick={saveOrgs}>保存</Button>
     </Box>
   )

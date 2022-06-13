@@ -9,7 +9,7 @@ const Tables = (props) => {
   const [loading, setLoading] = useState(true)
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [searchText, setSearch] = useState('')
-  const limit = 5
+  const limit = 10
   // 分页
   const [current, setCurrent] = useState(1)
   const [count, setCount] = useState(0)

@@ -4,16 +4,10 @@ import Box from '../../components/box';
 import { useRouter } from 'next/router';
 import network from '../../utils/network';
 import utils from '../../utils/utils';
-import { Breadcrumb, Button, Card, Col, DatePicker, Image, Input, InputNumber, message, Row, Select } from 'antd';
-const Users = () => {
+import { Breadcrumb, Button, Col, Input, message, Row } from 'antd';
+const Demo = () => {
   const [details, setDetails] = useState({
-    username: '',
-    nickname: '',
-    telphone: '',
-    email: '',
-    password: '',
     updated_at: new Date(),
-    last_login_at: new Date(),
     created_at: new Date()
   })
   const router = useRouter()
@@ -23,7 +17,7 @@ const Users = () => {
   }, [pid])
   const getData = async () => {
     if (!pid || pid === 'created') return
-    network('GET', `/users/${pid}`, null, (res) => {
+    network('GET', `/demo/${pid}`, null, (res) => {
       if (res._id) {
         setDetails(res)
       }
@@ -34,8 +28,8 @@ const Users = () => {
     setDetails(form)
   }
   // 创建新的
-  const saveUsers = async () => {
-    network('POST', '/users/', details, (res) => {
+  const saveDemo = async () => {
+    network('POST', '/demo/', details, (res) => {
       if (res._id) {
         message.success('保存成功')
         router.back()
@@ -45,8 +39,8 @@ const Users = () => {
     })
   }
   // 修改
-  const changeUsers = async () => {
-    network('PATCH', `/users/${pid}`, details, (res) => {
+  const changeDemo = async () => {
+    network('PATCH', `/demo/${pid}`, details, (res) => {
       if (res.modifiedCount) {
         message.success('保存成功')
         router.back()
@@ -59,46 +53,10 @@ const Users = () => {
     <Box>
       <Breadcrumb style={{ paddingBottom: 16 }}>
         <Breadcrumb.Item ><a href='/'>首页</a></Breadcrumb.Item>
-        <Breadcrumb.Item><a href='/users'>用户列表</a></Breadcrumb.Item>
+        <Breadcrumb.Item><a href='/demo'>{/* 标题 */}</a></Breadcrumb.Item>
         <Breadcrumb.Item>{pid === 'created' ? '添加' : '编辑'}</Breadcrumb.Item>
       </Breadcrumb>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>用户名</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'username')}
-            value={details.username}></Input>
-        </Col>
-        <Col>
-          <Button type='link'>修改密码</Button>
-        </Col>
-      </Row>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>昵称</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            onChange={(e) => changeText(e.target.value, 'nickname')}
-            value={details.nickname}></Input>
-        </Col>
-      </Row>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>手机号</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            type={'number'}
-            onChange={(e) => changeText(e.target.value, 'telphone')}
-            value={details.telphone}></Input>
-        </Col>
-      </Row>
-      <Row gutter={[8, 16]}>
-        <Col xs={4} style={{ lineHeight: '32px' }}>邮箱</Col>
-        <Col xs={24} sm={14}>
-          <Input
-            type={'email'}
-            onChange={(e) => changeText(e.target.value, 'email')}
-            value={details.email}></Input>
-        </Col>
-      </Row>
+      {/* 输入 */}
       {pid !== 'created' && <Row gutter={[8, 16]}>
         <Col xs={4}>创建时间</Col>
         <Col xs={24} sm={14} flex={1}>
@@ -116,10 +74,10 @@ const Users = () => {
           disabled={!details.username}
           style={{ marginTop: 30 }}
           onClick={!details._id ?
-            saveUsers :
-            changeUsers}>保存</Button>
+            saveDemo :
+            changeDemo}>保存</Button>
       </Row>
     </Box>
   )
 }
-export default Users
+export default Demo

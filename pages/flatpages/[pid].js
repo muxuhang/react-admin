@@ -35,7 +35,7 @@ const flatpages = () => {
         message.success('保存成功')
         router.back()
       } else {
-        message.error(res.message ||'创建失败')
+        message.error(res.message || '创建失败')
       }
     })
   }
@@ -51,7 +51,7 @@ const flatpages = () => {
         message.success('保存成功')
         router.back()
       } else {
-        message.error(res.message ||'修改失败')
+        message.error(res.message || '修改失败')
       }
     })
   }
@@ -64,7 +64,7 @@ const flatpages = () => {
       </Breadcrumb>
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>标签</Col>
-        <Col xs={24} sm={14}>
+        <Col xs={24} sm={16}>
           <Input
             onChange={(e) => changeText(e.target.value, 'slug')}
             value={details.slug}></Input>
@@ -72,7 +72,7 @@ const flatpages = () => {
       </Row>
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>标题</Col>
-        <Col xs={24} sm={14}>
+        <Col xs={24} sm={16}>
           <Input
             onChange={(e) => changeText(e.target.value, 'title')}
             value={details.title}></Input>
@@ -80,7 +80,7 @@ const flatpages = () => {
       </Row>
       <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>内容</Col>
-        <Col xs={24} sm={20}>
+        <Col xs={24} sm={16}>
           <Editor
             id='editor'
             init={{ language: 'zh_CN' }}
@@ -99,7 +99,9 @@ const flatpages = () => {
       {pid !== 'created' && <Row gutter={[8, 16]}>
         <Col xs={4} style={{ lineHeight: '32px' }}>修改时间</Col>
         <Col xs={24} sm={14}>
-          <Input value={utils.timeformat(details.updated ? details.updated : details.created)} disabled></Input></Col>
+          <Input value={utils.timeformat(details.updated ?
+            details.updated :
+            details.created)} disabled></Input></Col>
       </Row>}
       <Row gutter={[8, 16]}>
         <Button

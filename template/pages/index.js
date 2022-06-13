@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Tables from '../../components/Tables1'
 import Box from '../../components/box'
 import { Breadcrumb } from 'antd'
 import { renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
-const FlatpagesList = () => {
-  const title = '简单页面'
-  const https = 'flatpages'
+const UsersList = () => {
+  const title = '{/* 标题 */}'
+  const https = 'demo'
   const router = useRouter()
   const columns = [
-    { title: '标签', key: 'slug', dataIndex: 'slug' },
-    { title: '标题', key: 'title', dataIndex: 'title' },
-    { title: '创建时间', key: 'created', dataIndex: 'created', render: renderCreated },
+    { title: '更新时间', key: 'updated_at', dataIndex: 'updated_at', render: renderCreated },
+    { title: '创建时间', key: 'created_at', dataIndex: 'created_at', render: renderCreated },
     {
       title: '编辑', key: 'edit', render: (v) => (<>
         <a onClick={() => router.push(`/${https}/${v._id}`)}>编辑</a>
@@ -31,4 +30,4 @@ const FlatpagesList = () => {
     </Box>
   )
 }
-export default FlatpagesList
+export default UsersList

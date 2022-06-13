@@ -22,20 +22,16 @@ const LeftMenu = ({ collapsed }) => {
     { name: '首页', path: '/', icon: <HomeOutlined /> },
     { name: '用户列表', path: '/users', icon: <UsergroupAddOutlined /> },
     // { name: '广告', path: '/ads', icon: <HomeOutlined /> },
-    {
-      name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
-        { name: '部门结构', path: '/orgs' },
-        { name: '部门管理', path: '/orgs/deps' },
-        { name: '区域管理', path: '/orgs/regions' },
-        { name: '人员管理', path: '/orgs/staffs' },
-      ]
-    },
-    { name: '设置', path: '/settings', icon: <SettingOutlined /> },
-    { name: '工作动态', path: '/posts', icon: <BoxPlotOutlined /> },
-    
-    { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
-    { name: '通知', path: '/inbox', icon: <InboxOutlined /> },
-    { name: '打卡记录', path: '/checkins', icon: <BoxPlotOutlined /> },
+    // {
+    //   name: '部门', path: '/orgs', icon: <AppstoreOutlined />, content: [
+    //     { name: '部门结构', path: '/orgs' },
+    //     { name: '部门管理', path: '/orgs/deps' },
+    //     { name: '区域管理', path: '/orgs/regions' },
+    //     { name: '人员管理', path: '/orgs/staffs' },
+    //   ]
+    // },
+    // { name: '设置', path: '/settings', icon: <SettingOutlined /> },
+    // { name: '重点工作', path: '/tasks', icon: <ProjectOutlined /> },
     { name: '简单页面', path: '/flatpages', icon: <AlignRightOutlined /> },
   ]
   return (
@@ -65,10 +61,10 @@ const LeftMenu = ({ collapsed }) => {
           )}
         </SubMenu>
       ) : (
-          <Menu.Item key={item.path} icon={item.icon} onClick={() => router.push(item.path)}>
-            {item.name}
-          </Menu.Item>
-        ))}
+        <Menu.Item key={item.path} icon={item.icon} onClick={() => router.push(item.path)}>
+          {item.name}
+        </Menu.Item>
+      ))}
     </Menu>
   )
 }
