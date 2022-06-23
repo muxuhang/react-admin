@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Box from '../../components/box'
 import network from '../../utils/network'
 import Cookies from 'universal-cookie'
+import { Router } from 'next/router'
 
 const user = () => {
   const title = '个人中心'
@@ -26,9 +27,11 @@ const user = () => {
       getDetails()
     })
   }
-  const clearToken =async () =>{
+  const clearToken = async () => {
     const cookies = new Cookies()
-    await cookies.set('access', res.token, { path: '/' })
+    console.log(cookies.get('access'));
+    await cookies.remove('access')
+    Router.push('/login')
   }
   return (
     <Box>

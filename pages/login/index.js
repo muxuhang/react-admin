@@ -37,20 +37,20 @@ const Login = (props) => {
     return check
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (loading || !checkForm()) return
     setLoading(true)
-    network('post', '/accounts/login', {
+    await network('post', '/login', {
       username: data.username,
       password: data.password
     }, (res) => {
-      if (!res.token) return
+      if (!res.access) return
       const cookies = new Cookies()
-      cookies.set('access', res.token, { path: '/' })
-      // cookies.set('refresh', res.refresh, { path: '/' })
+      cookies.set('access', res.access, { path: '/' })
       Router.push(redirect)
-      setLoading(false)
     }, false)
+    setLoading(false)
+
   }
   useEffect(() => {
     Router.prefetch('/')
@@ -71,7 +71,7 @@ const Login = (props) => {
         <Col
           style={{ maxWidth: 440, width: '96%', margin: "auto" }}>
           <Card style={{ borderRadius: 5 }}>
-            <Title level={3}>纸坊镇考核台账系统</Title>
+            <Title level={3}>后台系统</Title>
             <Input
               margin="dense"
               label="用户名"
@@ -96,8 +96,8 @@ const Login = (props) => {
             <Button
               onClick={handleSubmit}
               type='primary'
-              loading={loading}
               style={{ width: '100%' }}
+              loading={loading}
               disabled={loading || !checkForm()}
             >登 录</Button>
           </Card>

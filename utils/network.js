@@ -19,7 +19,7 @@ const network = async (
     const access = await cookies.get('access')
     headers.Authorization = 'Bearer ' + access
     if (!access || access === undefined || access === 'undefined') {
-      // Router.push('login')
+      Router.push('login')
     }
   }
   fetch(uri, {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Tables from '../../components/Tables1'
 import Box from '../../components/box'
 import { Breadcrumb } from 'antd'
@@ -21,6 +21,17 @@ const UsersList = () => {
       </>)
     }
   ]
+  const setIframeHeight = (iframe) => {
+    if (iframe) {
+      var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+      if (iframeWin.document.body) {
+        iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+      }
+    }
+  };
+  useEffect(() => {
+    setIframeHeight(document.getElementById('external-frame'));
+  }, [])
   return (
     <Box title={title}>
       <Breadcrumb>
