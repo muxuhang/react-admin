@@ -19,7 +19,7 @@ const network = async (
     const access = await cookies.get('access')
     headers.Authorization = 'Bearer ' + access
     if (!access || access === undefined || access === 'undefined') {
-      Router.push('login')
+      // Router.push('login')
     }
   }
   fetch(uri, {
@@ -27,22 +27,26 @@ const network = async (
     headers: headers,
     body: body ? JSON.stringify(body) : null
   })
-    .then(res => {
+    .then(async res => {
       if (!res.ok) {
-        if (res.status === 400) {
-          message.error(res.message || `请求错误: ${res.status}`)
-        }
-        else if (res.status === 401) {
-          // 清除access然后跳转到登录
-          // Router.push('login')
+        if (res.status === 401) {
+          Router.push('/login')
         } else if (res.status >= 500) {
           message.error(res.message || `服务器错误: ${res.status}`)
+        } else {
+          return res
         }
         throw Error(res.statusText)
       }
       return res
     })
     .then((res) => res.json())
+    .then((res) => {
+      if (res.message) {
+        message.error(res.message)
+      }
+      return res
+    })
     .then(res => {
       callBack(res)
     })

@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 3002",
+    "build": "next build && next export",
     "start": "next start",
-    "template": "node template/create.js"
+    "template": "node template/create.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@tinymce/tinymce-react": "^3.8.1",
@@ -19,5 +20,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "universal-cookie": "^4.0.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1"
   }
 }

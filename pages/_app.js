@@ -5,11 +5,11 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import 'antd/dist/antd.css';
 import './_app.css'
-// import '/path/to/tinymce.min.js'
-
+import MAudio from '../components/MAudio';
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   React.useEffect(() => {
+    console.log('启动');
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -25,6 +25,7 @@ export default function MyApp(props) {
       <ConfigProvider locale={zhCN}>
         <Component {...pageProps} />
       </ConfigProvider>
+      <MAudio />
     </React.Fragment>
   );
 }

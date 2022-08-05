@@ -1,8 +1,26 @@
 import LineEcharts from './line-echarts'
 import BarEcharts from './bar-echarts'
 import PieEcharts from './pie-echarts'
-import { Card, Col, Row } from 'antd'
+import { Button, Card, Col, Row } from 'antd'
+import { useEffect, useState } from 'react'
 const Dashboards = () => {
+  const [soundList, setSoundList] = useState([
+    { title: '/musics/1.mp3', file: '/musics/1.mp3', howl: null },
+    { title: '/musics/2.mp3', file: '/musics/2.mp3', howl: null },
+    { title: '/musics/3.mp3', file: '/musics/3.mp3', howl: null },
+    { title: '/musics/4.mp3', file: '/musics/4.mp3', howl: null },
+    { title: '/musics/5.mp3', file: '/musics/5.mp3', howl: null },
+    { title: '/musics/6.mp3', file: '/musics/6.mp3', howl: null },
+    { title: '/musics/7.mp3', file: '/musics/7.mp3', howl: null },
+    { title: '/musics/8.mp3', file: '/musics/8.mp3', howl: null },
+    { title: '/musics/9.mp3', file: '/musics/9.mp3', howl: null },
+  ])
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(1);
+      localStorage.setItem('soundList', JSON.stringify(soundList))
+    }, 1000);
+  }, [])
   return (
     <>
       <Row gutter={[8, 8]}>

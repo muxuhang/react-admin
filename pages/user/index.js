@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Box from '../../components/box'
 import network from '../../utils/network'
 import Cookies from 'universal-cookie'
-import { Router } from 'next/router'
+import Router from 'next/router'
 
 const user = () => {
   const title = '个人中心'

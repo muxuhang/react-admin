@@ -40,17 +40,16 @@ const Login = (props) => {
   const handleSubmit = async () => {
     if (loading || !checkForm()) return
     setLoading(true)
-    await network('post', '/login', {
+    network('post', '/login', {
       username: data.username,
       password: data.password
     }, (res) => {
+      setLoading(false)
       if (!res.access) return
       const cookies = new Cookies()
       cookies.set('access', res.access, { path: '/' })
       Router.push(redirect)
     }, false)
-    setLoading(false)
-
   }
   useEffect(() => {
     Router.prefetch('/')
