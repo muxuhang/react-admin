@@ -70,7 +70,7 @@ const Login = (props) => {
         <Col
           style={{ maxWidth: 440, width: '96%', margin: "auto" }}>
           <Card style={{ borderRadius: 5 }}>
-            <Title level={3}>后台系统</Title>
+            <Title level={3}>{process.env.title}</Title>
             <Input
               margin="dense"
               label="用户名"

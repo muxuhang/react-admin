@@ -20,6 +20,8 @@ const Tables = (props) => {
   // 获取列表数据
   const getList = () => {
     let url = https
+    setLoading(false)
+    return
     const getListUrl = `/${url}/?limit=${limit}&offset=${(current - 1) * limit}${searchText ? `&search=${searchText}` : ''}${sort ? `&sort=${sort}` : ''}`
     network('GET', getListUrl, null, (res) => {
       setCount(Math.ceil(res.count / limit));

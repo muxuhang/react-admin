@@ -5,7 +5,10 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import 'antd/dist/antd.css';
 import './_app.css'
-import MAudio from '../components/MAudio';
+// 1、提供增删改查的列表，自定义操作部分，查看详情
+// 2、首页简单明了的图表
+// 3、数据大屏展示
+// 4、json文件提供基础名称修改()
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   React.useEffect(() => {
@@ -19,13 +22,12 @@ export default function MyApp(props) {
   return (
     <React.Fragment>
       <Head>
-        <title>后台系统</title>
+        <title>{process.env.title}</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ConfigProvider locale={zhCN}>
         <Component {...pageProps} />
       </ConfigProvider>
-      <MAudio />
     </React.Fragment>
   );
 }
