@@ -5,7 +5,7 @@ import { renderImage, renderCreated } from '../../utils/renders'
 import { useRouter } from 'next/router'
 import { ActiveRingChart, BorderBox1, BorderBox10, BorderBox11, BorderBox13, BorderBox2, BorderBox7, BorderBox9, CapsuleChart, Charts, ConicalColumnChart, Decoration10, Decoration11, Decoration2, Decoration5, Decoration7, Decoration8, Decoration9, DigitalFlop, FlylineChart, FlylineChartEnhanced, FullScreenContainer, Loading, ScrollBoard, ScrollRankingBoard, WaterLevelPond } from '@jiaminghi/data-view-react'
 import FlyLineChart from '@jiaminghi/data-view-react/lib/flylineChart'
-import ShanDong from './sd_map'
+import ShanDong from '../../components/Cockpit/sd_map'
 const { Text, Title } = Typography
 const width = 1920, height = 1160
 const CockpitPage = () => {
@@ -133,8 +133,8 @@ const CockpitPage = () => {
                 <BorderBox title="融资转化率">
                   <WaterLevelPond config={{
                     data: [55],
-                    waveNum:5,
-                    waveHeight:8
+                    waveNum: 5,
+                    waveHeight: 8
                   }} style={{ width: '60%', height: '220px', margin: 'auto', marginTop: 20 }} />
                 </BorderBox>
                 <BorderBox title="融资总额排行榜">
